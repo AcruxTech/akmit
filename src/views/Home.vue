@@ -1,17 +1,173 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <Header></Header>
+    <pre>
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1
+      1  
+    </pre>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
+import Header from '@/components/Header.vue'
 
 export default {
-  // name: 'Home',
-  // components: {
-  //   HelloWorld
-  // }
+  name: 'Home',
+  components: {
+    Header
+  }
 }
 </script>

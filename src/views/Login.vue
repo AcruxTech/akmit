@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #login{
 	margin: 0;
 	padding: 0;
@@ -106,6 +106,7 @@ button:hover{
 }
 .login label{
 	color: #573b8a;
+	padding-top: 20px;
 	transform: scale(.6);
 }
 
@@ -117,5 +118,11 @@ button:hover{
 }
 #chk:checked ~ .signup label{
 	transform: scale(.6);
+}
+
+input:focus {
+	transition-timing-function: ease-in;
+	transition: .2s;
+	box-shadow: 0px 4px 8px #444;
 }
 </style>
