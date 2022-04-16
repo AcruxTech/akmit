@@ -3,17 +3,17 @@
     <span id='title'>контакты</span>
     <div id='contacts-div'>
       <div class='contact'>
-        <img src='@/assets/images/icons/vk.svg' alt='vk'>
+        <img src='@/assets/images/vk.svg' alt='vk'>
         <span class='soc-net'>вконтакте:</span>
         <span class='data'>vk.com/akmit</span>
       </div>
       <div class='contact'>
-        <img src='@/assets/images/icons/telegram.svg' alt='telegram'>
+        <img src='@/assets/images/telegram.svg' alt='telegram'>
         <span class='soc-net'>telegram:</span>
         <span class='data'>t.me/akmit</span>
       </div>
       <div class='contact'>
-        <img src='@/assets/images/icons/email.svg' alt='email'>
+        <img src='@/assets/images/email.svg' alt='email'>
         <span class='soc-net'>email:</span>
         <span class='data'>admin@akmit.ru</span>
       </div>
