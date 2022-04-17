@@ -1,10 +1,12 @@
 <template>
   <div id='question'>
-    <div id='title-div' @click='isClick=!isClick'>
+    <!-- <input type='checkbox' id='chk' aria-hidden='true'> -->
+    <div id='title-div'>
       <div id='arrow' v-bind:class='{rotate: isClick}'>&#9658;</div>
-      <span id='title'>{{question}}</span>
+      <!-- <label for='chk' id='title' @click='isClick=!isClick'>{{question}}</label> -->
+      <div id='title' @click='isClick=!isClick'>{{question}}</div>
     </div>
-    <span id='answer' v-if='isClick'>{{answer}}</span>
+    <transition name='fade'><div id='answer' v-if='isClick'>{{answer}}</div></transition>
   </div>
 </template>
 
@@ -60,5 +62,27 @@ export default {
   font-size: 16px;
   line-height: 22px;
   color: #999999;
+  /* min-height: 100vh; */
+  /* transition: all .2s linear; */
+  /* overflow: hidden; */
 }
+
+/* #chk{
+	display: none;
+}
+
+#chk:checked ~ #answer{
+  height: 100vh;
+} */
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 </style>

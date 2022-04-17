@@ -1,5 +1,7 @@
 <template>
   <div id="home">
+    <Sidenav></Sidenav>
+    
     <Header></Header>
     <Background></Background>
     <Banner></Banner>
@@ -19,6 +21,7 @@ import OurServices from '@/components/OurServices.vue'
 import Questions from '@/components/Questions.vue'
 import Contacts from '@/components/Contacts.vue'
 import Footer from '@/components/Footer.vue'
+import Sidenav from '@/components/Sidenav.vue'
 
 export default {
   name: 'Home',
@@ -29,7 +32,8 @@ export default {
     OurServices,
     Questions,
     Contacts,
-    Footer
+    Footer,
+    Sidenav
   }
 }
 </script>

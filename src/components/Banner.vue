@@ -18,13 +18,6 @@ export default {
 </script>
 
 <style scoped>
-a:active, /* активная/посещенная ссылка */
-a:hover,  /* при наведении */
-a {
-  text-decoration: none;
-  color: #666;
-}
-
 #banner {
   margin-top: -6vh;
   width: 60vw;
@@ -60,7 +53,6 @@ a {
   background-repeat: no-repeat;
   background-size: 0% 100%;
   transition: background-size .5s, color .5s;
-
 }
 
 #register:hover {

@@ -97,7 +97,8 @@ button{
 	justify-content: center;
 	display: block;
 	color: #fff;
-	background: #573b8a;
+	/* background: #573b8a; */
+	background: #2C63B5;
 	font-size: 1em;
 	font-weight: bold;
 	/* margin-top: 20px; */
@@ -107,10 +108,17 @@ button{
 	border-radius: 5px;
 	transition: .2s ease-in;
 	cursor: pointer;
+
+	background-image: linear-gradient(#316dc7, #316dc7);
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size .5s, color .5s;
 }
 
 button:hover{
-	background: #6d44b8;
+	/* background: #6d44b8; */
+	background-size: 100% 100%;
 }
 
 .login{
@@ -123,7 +131,8 @@ button:hover{
 }
 
 .login label{
-	color: #573b8a;
+	/* color: #573b8a; */
+	color: #2C63B5;
 	padding-top: 20px;
 	transform: scale(.6);
 }
