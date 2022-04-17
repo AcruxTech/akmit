@@ -1,12 +1,23 @@
 <template>
   <div id="service">
+    <img v-bind:src=path v-bind:alt='title_alt'>
     <span id='text'>{{text}}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['text']
+  props: ['text', 'img'],
+  data() {
+    return {
+      path: '../assets/icons/vk.svg',
+      title_alt: ''
+    }
+  },
+  created() {
+    this.title_alt = this.img.replace('.svg', '');
+    console.log(this.path, this.title_alt);
+  }
 }
 </script>
 

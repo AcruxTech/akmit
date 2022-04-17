@@ -2,14 +2,14 @@
   <div id='services'>
     <span id='title'>что мы предлагаем?</span>
     <div class='row'>
-      <Service text='бесплатная регистрация'></Service>
-      <Service text='быстрая работа сайта'></Service>
-      <Service text='приятный интерфейс'></Service>
+      <Service text='бесплатная регистрация' img='vk.svg'></Service>
+      <Service text='мгновенный доступ к данным' img='free_register.svg'></Service>
+      <Service text='приятный интерфейс' img='free_register.svg'></Service>
     </div>
     <div class='row'>
-      <Service text='просмотр и редактировнание домашнего задания'></Service>
-      <Service text='сохранение расписания'></Service>
-      <Service text='akmit akmit akmit'></Service>
+      <Service text='просмотр и редактировнание домашнего задания' img='free_register.svg'></Service>
+      <Service text='сохранение расписания' img='free_register.svg'></Service>
+      <Service text='полный контроль учебного процесса' img='free_register.svg'></Service>
     </div>
   </div>
 </template>
