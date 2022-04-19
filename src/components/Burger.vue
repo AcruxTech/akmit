@@ -4,6 +4,18 @@
     <div class='line' id='two'></div>
     <div class='line' id='three'></div>
   </div>
+
+  <script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementsByClassName('burger').style.background = '#285aa5';
+      } else {
+        document.getElementsByClassName('burger').style.background = '#fff';
+      }
+    }
+  </script>
 </template>
 
 <style scoped>
@@ -14,7 +26,7 @@
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  background-color: #2C63B5;
+  /* background-color: #3570c9; */
   padding: 8px 0;
   cursor: pointer;
 }
@@ -53,7 +65,7 @@
 }
 
 .burger.active {
-  background-color: #285aa5;
+  /* background-color: #285aa5; */
   justify-content: center;
   transition: .3s;
 }

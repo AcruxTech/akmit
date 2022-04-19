@@ -3,13 +3,13 @@
     <span id='title'>что мы предлагаем?</span>
     <div class='row'>
       <Service text='бесплатная регистрация' img='vk.svg'></Service>
-      <Service text='мгновенный доступ к данным' img='free_register.svg'></Service>
-      <Service text='приятный интерфейс' img='free_register.svg'></Service>
+      <Service text='мгновенный доступ' img='vk.svg'></Service>
+      <Service text='приятный интерфейс' img='vk.svg'></Service>
     </div>
     <div class='row'>
-      <Service text='просмотр и редактировнание домашнего задания' img='free_register.svg'></Service>
-      <Service text='сохранение расписания' img='free_register.svg'></Service>
-      <Service text='полный контроль учебного процесса' img='free_register.svg'></Service>
+      <Service text='просмотр и редактировнание домашнего задания' img='vk.svg'></Service>
+      <Service text='сохранение расписания' img='vk.svg'></Service>
+      <Service text='полный контроль учебы' img='vk.svg'></Service>
     </div>
   </div>
 </template>
@@ -26,7 +26,7 @@ export default {
 
 <style scoped>
 #services {
-  width: 60vw;
+  width: 60%; /* */
   height: 80vh;
   display: flex;
   flex-direction: column;

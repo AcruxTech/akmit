@@ -20,9 +20,9 @@ export default {
 <style scoped>
 #banner {
   margin-top: -6vh;
-  width: 60vw;
+  width: 60vw; /* */
   height: 12vh;
-  background: #2C63B5;
+  background: #3570c9;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -34,6 +34,7 @@ export default {
   font-family: 'OswaldMedium';
   font-style: normal;
   font-weight: 700;
+  text-transform: uppercase;
   font-size: 26px;
   line-height: 41px;
   letter-spacing: 0.02em;
@@ -46,7 +47,7 @@ export default {
   align-items: center;
   background-color: #fff;
   transition: .5s;
-  width: 20vh;
+  width: 10vw;
   height: 45%;
   background-image: linear-gradient(#eaeaea, #eaeaea);
   background-position: 0% 0%;

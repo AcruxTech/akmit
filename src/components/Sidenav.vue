@@ -3,9 +3,9 @@
       <a class="closebtn" onclick="document.getElementById('sidenav').style.width = '0'">
           &times;
       </a>
-      <p>раз</p>
-      <p>два</p>
-      <p>три</p>
+      <p>Главная</p>
+      <p>Вход</p>
+      <p>Регистрация</p>
     </div>
 </template>
 

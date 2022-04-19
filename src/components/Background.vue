@@ -7,7 +7,7 @@
 
 <style scoped>
 #background {
-  width: 100vw;
+  width: 100%; /**/
   height: 60vh;
   display: flex;
   flex-direction: column;

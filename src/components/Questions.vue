@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 #questions {
-  width: 60vw;
+  width: 60%; /* */
   display: flex;
   flex-direction: column;
   justify-content: space-around;

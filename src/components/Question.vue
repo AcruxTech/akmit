@@ -1,22 +1,27 @@
 <template>
   <div id='question'>
-    <!-- <input type='checkbox' id='chk' aria-hidden='true'> -->
     <div id='title-div'>
       <div id='arrow' v-bind:class='{rotate: isClick}'>&#9658;</div>
-      <!-- <label for='chk' id='title' @click='isClick=!isClick'>{{question}}</label> -->
       <div id='title' @click='isClick=!isClick'>{{question}}</div>
     </div>
-    <transition name='fade'><div id='answer' v-if='isClick'>{{answer}}</div></transition>
+    <Answer :show='isClick' :answer='answer'>
+    </Answer>
+    <!-- <transition name='fade'><div id='answer' v-if='isClick'>{{answer}}</div></transition> -->
   </div>
 </template>
 
 <script>
+import Answer from '@/components/Answer.vue'
+
 export default {
   props: ['question', 'answer'],
   data() {
     return {
       isClick: false
     }
+  },
+  components: {
+    Answer
   }
 }
 </script>
@@ -75,7 +80,7 @@ export default {
   height: 100vh;
 } */
 
-.fade-enter-active,
+/* .fade-enter-active,
 .fade-leave-active {
   transition: all .5s ease;
 }
@@ -83,6 +88,6 @@ export default {
 .fade-enter-from,
 .fade-leave-to {
   opacity: 0;
-}
+} */
 
 </style>

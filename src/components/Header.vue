@@ -10,7 +10,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
+  width: 100%; /* */
   height: 100px;
   overflow: hidden;
   -webkit-backdrop-filter: blur(7px);
@@ -33,6 +33,5 @@ import Burger from '@/components/Burger.vue'
 
 export default {
   components: { Burger },
-  
 }
 </script>>

@@ -1,27 +1,17 @@
 <template>
   <div id="service">
-    <img v-bind:src=path v-bind:alt='title_alt'>
+    <img :src="require(`../assets/icons/${img}`)" alt="alt">
     <span id='text'>{{text}}</span>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['text', 'img'],
-  data() {
-    return {
-      path: '../assets/icons/vk.svg',
-      title_alt: ''
-    }
-  },
-  created() {
-    this.title_alt = this.img.replace('.svg', '');
-    console.log(this.path, this.title_alt);
-  }
+  props: ['text', 'img']
 }
 </script>
 
-<style>
+<style scoped>
 #service {
   width: 19vw;
   height: 100%;
@@ -41,5 +31,6 @@ export default {
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 0.02em;
+  padding-top: 20px;
 }
 </style>

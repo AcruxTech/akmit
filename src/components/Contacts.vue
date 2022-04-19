@@ -27,7 +27,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 60vw;
+  width: 60%; /**/ 
 }
 
 #contacts-div {
@@ -35,7 +35,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 60vw;
+  width: 100%; /* */
 }
 
 .contact {
