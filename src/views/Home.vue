@@ -4,7 +4,8 @@
     
     <Header></Header>
     <Background></Background>
-    <Banner></Banner>
+    <Waves></Waves>
+    <!-- <Banner></Banner> -->
     <OurServices></OurServices>
     <Questions></Questions>
     <Contacts></Contacts>
@@ -16,6 +17,7 @@
 // @ is an alias to /src
 import Header from '@/components/Header.vue'
 import Background from '@/components/Background.vue'
+import Waves from '@/components/Waves.vue'
 import Banner from '@/components/Banner.vue'
 import OurServices from '@/components/OurServices.vue'
 import Questions from '@/components/Questions.vue'
@@ -28,6 +30,7 @@ export default {
   components: {
     Header,
     Background,
+    Waves,
     Banner,
     OurServices,
     Questions,
