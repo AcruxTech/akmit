@@ -6,7 +6,6 @@
     </div>
     <Answer :show='isClick' :answer='answer'>
     </Answer>
-    <!-- <transition name='fade'><div id='answer' v-if='isClick'>{{answer}}</div></transition> -->
   </div>
 </template>
 
@@ -67,27 +66,6 @@ export default {
   font-size: 16px;
   line-height: 22px;
   color: #999999;
-  /* min-height: 100vh; */
-  /* transition: all .2s linear; */
-  /* overflow: hidden; */
 }
-
-/* #chk{
-	display: none;
-}
-
-#chk:checked ~ #answer{
-  height: 100vh;
-} */
-
-/* .fade-enter-active,
-.fade-leave-active {
-  transition: all .5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-} */
 
 </style>

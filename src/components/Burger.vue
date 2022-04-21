@@ -4,19 +4,25 @@
     <div class='line' id='two'></div>
     <div class='line' id='three'></div>
   </div>
-
-  <script>
-    window.onscroll = function() {scrollFunction()};
-
-    function scrollFunction() {
-      if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
-        document.getElementsByClassName('burger').style.background = '#285aa5';
-      } else {
-        document.getElementsByClassName('burger').style.background = '#fff';
-      }
-    }
-  </script>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isShow: false
+    }
+  },
+  methods: {
+    toggle() {
+      document.querySelector('.burger').classList.toggle('active');
+      if(this.isShow == true) document.getElementById('sidenav').style.width ='0px';    
+      else document.getElementById('sidenav').style.width ='250px'
+      this.isShow = !this.isShow;
+    }
+  }
+}
+</script>
 
 <style scoped>
 .burger {
@@ -71,20 +77,3 @@
 }
 </style>
 
-<script>
-export default {
-  data() {
-    return {
-      isShow: false
-    }
-  },
-  methods: {
-    toggle() {
-      document.querySelector('.burger').classList.toggle('active');
-      if(this.isShow == true) document.getElementById('sidenav').style.width ='0px';    
-      else document.getElementById('sidenav').style.width ='250px'
-      this.isShow = !this.isShow;
-    }
-  }
-}
-</script>
