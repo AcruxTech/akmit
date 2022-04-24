@@ -1,6 +1,6 @@
 <template>
   <div id="service">
-    <img :src="require(`../assets/icons/${img}`)" alt="alt">
+    <img :src="require(`../../assets/icons/${img}`)" alt="alt">
     <span id='text'>{{text}}</span>
   </div>
 </template>
@@ -32,5 +32,25 @@ export default {
   text-transform: uppercase;
   letter-spacing: 0.02em;
   padding-top: 20px;
+}
+
+@media(max-width: 786px) {
+  #service {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 1vh 0;
+  }
+
+  #text {
+    font-size: 18px;
+    line-height: 27px;
+    padding: 20px 0;
+  }
+
+  img {
+    width: 35px;
+    margin: 0 15px;
+  }
 }
 </style>

@@ -15,15 +15,16 @@
 
 <script>
 // @ is an alias to /src
-import Header from '@/components/Header.vue'
-import Background from '@/components/Background.vue'
-import Waves from '@/components/Waves.vue'
-import Banner from '@/components/Banner.vue'
-import OurServices from '@/components/OurServices.vue'
-import Questions from '@/components/Questions.vue'
-import Contacts from '@/components/Contacts.vue'
-import Footer from '@/components/Footer.vue'
-import Sidenav from '@/components/Sidenav.vue'
+import Header from '@/components/Shared/Header.vue'
+import Footer from '@/components/Shared/Footer.vue'
+import Sidenav from '@/components/Shared/Sidenav.vue'
+
+import Background from '@/components/Home/Background.vue'
+import Waves from '@/components/Home/Waves.vue'
+import Banner from '@/components/Home/Banner.vue'
+import OurServices from '@/components/Home/OurServices.vue'
+import Questions from '@/components/Home/Questions.vue'
+import Contacts from '@/components/Home/Contacts.vue'
 
 export default {
   name: 'Home',

@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import Question from '@/components/Question.vue'
+import Question from '@/components/Home/Question.vue'
 
 export default {
   components: {
@@ -55,5 +55,21 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+@media(max-width: 768px) {
+  #questions {
+    width: 80%;
+    padding-top: 7vh;
+  }
+
+  #title {
+    font-size: 26px;
+    line-height: 42px;
+  }
+
+  #list {
+    width: 100%;
+  }
 }
 </style>

@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Service from '@/components/Service.vue'
+import Service from '@/components/Home/Service.vue'
 
 export default {
   components: {
@@ -54,5 +54,26 @@ export default {
   height: 40%;
   width: 60vw;
   margin-bottom: 1.5vw;
+}
+
+@media(max-width: 768px) {
+  #services {
+    width: 80%;
+    height: 100%;
+    justify-content: center;
+    padding-top: 7vh;
+  }
+
+  #title {
+    font-size: 26px;
+    line-height: 42px;
+  }
+
+  .row {
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    margin-bottom: 1vw;
+  }
 }
 </style>

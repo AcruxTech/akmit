@@ -83,4 +83,42 @@
   color: #000000;
   margin: 1vh 0;
 }
+
+@media (max-width: 768px) {
+  #title {
+    font-size: 26px;
+    line-height: 42px;
+  }
+
+  #contacts {
+    padding-top: 7vh;
+    width: 80%; 
+  }
+
+  #contacts-div {
+    flex-direction: column;
+  }
+
+  .contact {
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin: 10px 0;
+    padding: 10px;
+  }
+
+  img {
+    width: 35px;
+    margin: 0 15px;
+  }
+
+  img[alt='email'] {
+    width: 30px;
+  }
+
+  .soc-net {
+    display: none;
+  }
+}
 </style>

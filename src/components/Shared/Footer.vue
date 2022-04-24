@@ -26,4 +26,16 @@
   line-height: 22px;
   color: #FFFFFF;
 }
+
+@media (max-width:768px) {
+  #footer {
+    height: 80px;
+    padding: 0 10vw;
+    margin-top: 7vh;
+  }
+
+  .text {
+    font-size: 15px;
+  }
+}
 </style>

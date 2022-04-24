@@ -26,12 +26,25 @@
 img {
   width: 70px;
 }
+
+@media (max-width:768px) {
+  #header {
+    height: 80px;
+    padding: 0 10vw;
+  }
+
+  img {
+    width: 60px;
+  }
+}
 </style>
 
 <script>
-import Burger from '@/components/Burger.vue'
+import Burger from '@/components/Shared/Burger.vue'
 
 export default {
-  components: { Burger },
+  components: { 
+    Burger
+  }
 }
 </script>>

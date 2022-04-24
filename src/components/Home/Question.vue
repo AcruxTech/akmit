@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import Answer from '@/components/Answer.vue'
+import Answer from '@/components/Home/Answer.vue'
 
 export default {
   props: ['question', 'answer'],
@@ -68,4 +68,14 @@ export default {
   color: #999999;
 }
 
+@media (max-width: 768px) {
+  #title {
+    font-size: 20px;
+    line-height: 30px;
+  }
+
+  #arrow {
+    font-size: 22px;
+  }
+}
 </style>

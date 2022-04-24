@@ -42,4 +42,16 @@
   text-transform: uppercase;
   color: #FFFFFF;
 }
+
+@media (max-width:768px) {
+  #background {
+    padding: 0 10%;
+  }
+
+  #title {
+    font-size: 30px;
+    line-height: 44px;
+    margin-bottom: 25px;
+  }
+}
 </style>
