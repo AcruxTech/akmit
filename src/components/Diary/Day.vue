@@ -1,13 +1,8 @@
 <template>
   <div id='day'>
     <div id='heading'>Понедельник</div>
-    <Lesson></Lesson>
-    <Lesson></Lesson>
-    <Lesson></Lesson>
-    <Lesson></Lesson>
-    <Lesson></Lesson>
-    <Lesson></Lesson>
-    <Lesson></Lesson>
+    <Lesson v-for='(lesson, index) in lessons' :key='lesson.title'
+      :number='index+1' :title='lesson.title' :homework='lesson.homework' :last='false'></Lesson>
   </div>
 </template>
 
@@ -16,6 +11,19 @@ import Lesson from '@/components/Diary/Lesson.vue'
 export default {
   components: {
     Lesson
+  },
+  data() {
+    return {
+      lessons: [
+        { title: '-', homework: '-' },
+        { title: 'Русский язык', homework: 'Учить правила' },
+        { title: 'Русский язык', homework: 'Учить правила' },
+        { title: 'Алгебра', homework: '№547, 549' },
+        { title: 'Физ-ра', homework: 'офп' },
+        { title: 'Физ-ра', homework: 'офп' },
+        { title: 'География', homework: 'Готовиться к к/р'}
+      ]
+    }
   }
 }
 </script>

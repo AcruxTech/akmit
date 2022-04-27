@@ -1,9 +1,32 @@
 <template>
   <div id='header'>
     <img src='@/assets/logo.svg' alt='logo'/>
-    <Burger></Burger>
+    <Burger @click='burgerClick' :show='isShow'></Burger>
+    <Sidenav :show='isShow'></Sidenav>
   </div>
 </template>
+
+<script>
+import Burger from '@/components/Shared/Burger.vue'
+import Sidenav from '@/components/Shared/Sidenav.vue'
+
+export default {
+  components: { 
+    Burger,
+    Sidenav
+  },
+  data() {
+    return {
+      isShow: false
+    }
+  },
+  methods: {
+    burgerClick() {
+      this.isShow = !this.isShow;
+    }
+  }
+}
+</script>
 
 <style scoped>
 #header {
@@ -12,7 +35,7 @@
   left: 0;
   width: 100%; /* */
   height: 100px;
-  overflow: hidden;
+  /* overflow: hidden; */
   -webkit-backdrop-filter: blur(7px);
   backdrop-filter: blur(7px);
   background-color: rgba(255, 255, 255, 0.1);
@@ -39,12 +62,3 @@ img {
 }
 </style>
 
-<script>
-import Burger from '@/components/Shared/Burger.vue'
-
-export default {
-  components: { 
-    Burger
-  }
-}
-</script>>

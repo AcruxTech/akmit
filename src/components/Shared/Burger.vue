@@ -1,5 +1,5 @@
 <template>
-  <div class='burger' @click='toggle'>
+  <div class='burger' v-bind:class='{active: show}'>
     <div class='line' id='one'></div>
     <div class='line' id='two'></div>
     <div class='line' id='three'></div>
@@ -13,13 +13,8 @@ export default {
       isShow: false
     }
   },
-  methods: {
-    toggle() {
-      document.querySelector('.burger').classList.toggle('active');
-      if(this.isShow == true) document.getElementById('sidenav').style.width ='0px';    
-      else document.getElementById('sidenav').style.width ='250px'
-      this.isShow = !this.isShow;
-    }
+  props: {
+    show: Boolean
   }
 }
 </script>
@@ -32,7 +27,7 @@ export default {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  /* background-color: #3570c9; */
+  background-color: #3b7cde;
   padding: 8px 0;
   cursor: pointer;
 }

@@ -1,8 +1,8 @@
 <template>
-  <div id='question'>
+  <div id='question' @click='isClick=!isClick'>
     <div id='title-div'>
       <div id='arrow' v-bind:class='{rotate: isClick}'>&#9658;</div>
-      <div id='title' @click='isClick=!isClick'>{{question}}</div>
+      <div id='title'>{{question}}</div>
     </div>
     <Answer :show='isClick' :answer='answer'>
     </Answer>

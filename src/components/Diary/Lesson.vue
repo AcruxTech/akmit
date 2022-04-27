@@ -1,18 +1,21 @@
 <template>
-  <div id='lesson'>
-    <div id='title'>
-      <div id='number'>1</div>
-      <span id='title-text'>title</span>
-    </div>
-    <div id='homework'>
-      <span id='homework-text'>homework</span>
+  <div id='lesson' v-bind:class='{last: last}'>
+    <div id='number'>{{number}}</div>
+    <div id='data'>
+      <span id='title'>{{title}}</span>
+      <span id='homework'>{{homework}}</span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-
+  props: {
+    last: Boolean,
+    number: Number,
+    title: String,
+    homework: String
+  }
 }
 </script>
 
@@ -24,18 +27,18 @@ export default {
   justify-content: space-between;
   height: 65px;
   border-bottom: solid 1px #888;
-  padding: 0 30px;
 }
 
-#title {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+#lesson.last {
+  border-bottom: none;
 }
 
 #number {
-  padding-right: 10px;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-family: 'OswaldMedium';
   font-style: normal;
   font-weight: 500;
@@ -44,6 +47,24 @@ export default {
   text-align: center;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  color: #000;
+  border-right: dotted 2px #888;
+}
+
+#data {
+  width: calc(100% - 65px);
+  height: 65px;
+  padding: 0 15px;
+}
+
+#title {
+  font-family: 'OswaldMedium';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 22px;
+  line-height: 35px;
+  text-align: center;
+  letter-spacing: 0.02em;
   color: #000;
 }
 

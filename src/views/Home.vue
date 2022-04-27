@@ -1,7 +1,5 @@
 <template>
   <div id="home">
-    <Sidenav></Sidenav>
-    
     <Header></Header>
     <Background></Background>
     <Waves></Waves>

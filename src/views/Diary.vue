@@ -1,6 +1,5 @@
 <template>
   <div id='diary'>
-    <Sidenav></Sidenav>
     <div id='background'></div>
     <div id='days'>
       <div class='row'>
@@ -57,11 +56,11 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  padding: 5% 0;
 }
 
 #days {
   width: 60%;
-  height: 1200px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
