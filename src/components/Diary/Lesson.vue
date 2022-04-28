@@ -34,7 +34,7 @@ export default {
 }
 
 #number {
-  width: 65px;
+  width: 45px;
   height: 65px;
   display: flex;
   justify-content: center;
@@ -48,21 +48,25 @@ export default {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: #000;
-  border-right: dotted 2px #888;
+  border-right: solid 1px #888;
 }
 
 #data {
-  width: calc(100% - 65px);
+  width: calc(100% - 45px);
   height: 65px;
-  padding: 0 15px;
+  padding-left: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
 }
 
 #title {
   font-family: 'OswaldMedium';
   font-style: normal;
   font-weight: 500;
-  font-size: 22px;
-  line-height: 35px;
+  font-size: 20px;
+  line-height: 32px;
   text-align: center;
   letter-spacing: 0.02em;
   color: #000;

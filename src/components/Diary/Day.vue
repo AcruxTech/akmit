@@ -1,13 +1,14 @@
 <template>
   <div id='day'>
     <div id='heading'>Понедельник</div>
-    <Lesson v-for='(lesson, index) in lessons' :key='lesson.title'
-      :number='index+1' :title='lesson.title' :homework='lesson.homework' :last='false'></Lesson>
+    <Lesson v-for='(lesson, index) in lessons' :key='lesson.title' :last='amount==index+1 ? true : false'
+      :number='index+1' :title='lesson.title' :homework='lesson.homework'></Lesson>
   </div>
 </template>
 
 <script>
 import Lesson from '@/components/Diary/Lesson.vue'
+
 export default {
   components: {
     Lesson
@@ -22,8 +23,13 @@ export default {
         { title: 'Физ-ра', homework: 'офп' },
         { title: 'Физ-ра', homework: 'офп' },
         { title: 'География', homework: 'Готовиться к к/р'}
-      ]
+      ],
+      amount: 0
     }
+  },
+  created() {
+    this.amount = this.lessons.length;
+    console.log(this.amount);
   }
 }
 </script>
@@ -34,6 +40,7 @@ export default {
   background-color: #fff;
   border-radius: 7px;
 	box-shadow: 0px 3px 12px #585858;
+  margin-top: 5vh;
 }
 
 #heading {
@@ -56,5 +63,11 @@ export default {
   letter-spacing: 0.02em;
   text-transform: uppercase;
   color: #fff;
+}
+
+@media(max-width: 768px) {
+  #day {
+    width: 100%;
+  }
 }
 </style>
