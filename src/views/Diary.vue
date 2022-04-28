@@ -1,5 +1,6 @@
 <template>
   <div id='diary'>
+    <Modal></Modal>
     <div id='background'></div>
     <div id='days'>
       <div class='row'>
@@ -23,13 +24,15 @@ import Header from '@/components/Shared/Header.vue'
 import Footer from '@/components/Shared/Footer.vue'
 import Sidenav from '@/components/Shared/Sidenav.vue'
 import Day from '@/components/Diary/Day.vue'
+import Modal from '@/components/Diary/Modal.vue'
 
 export default {
   components: {
     Header,
     Footer,
     Sidenav,
-    Day
+    Day,
+    Modal
   }
 }
 </script>

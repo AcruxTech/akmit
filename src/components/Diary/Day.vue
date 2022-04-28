@@ -29,7 +29,6 @@ export default {
   },
   created() {
     this.amount = this.lessons.length;
-    console.log(this.amount);
   }
 }
 </script>
