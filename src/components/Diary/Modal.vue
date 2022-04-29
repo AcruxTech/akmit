@@ -6,11 +6,17 @@
         <span id='today'>28 марта 2022 года - 71 школа, 311 кабинет</span>
       </div>  
       <form method='post'>
-        <input type='text' name='lesson' required value='Литература' disabled>
-        <input type='text' name='homework' required value='Учить стих' disabled>
+        <div class='wrapper'>
+          <input type='text' name='lesson' required value='Литература' :disabled='inputs.lessonInput'>
+          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("lessonInput")'>
+        </div>
+        <div class='wrapper'>
+          <input type='text' name='homework' required value='Учить стих' :disabled='inputs.homeworkInput'>
+          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("homeworkInput")'>
+        </div>
         <div id='buttons'>
-          <button id='cancel'>Отмена</button>
-          <button>Сохранить</button>
+          <button id='cancel' @click='cancel'>Отмена</button>
+          <button @click='save'>Сохранить</button>
         </div>
       </form>
     </div>
@@ -18,10 +24,33 @@
 </template>
 
 <script>
-import Day from './Day.vue'
+import Day from '@/components/Diary/Day.vue'
 
 export default {
-  components: { Day },
+  components: { 
+    Day 
+  },
+  data() {
+    return {
+      inputs: {
+        lessonInput: 'disabled',
+        homeworkInput: 'disabled'
+      }
+    }
+  },
+  methods: {
+    cancel(event) {
+      event.preventDefault();
+      this.$emit('close');
+    },
+    save(event) {
+      event.preventDefault();
+    },
+    iconClick(input) {
+      if(this.inputs[input]) this.inputs[input] = null;
+      else this.inputs[input] = 'disabled';
+    }
+  }
 }
 </script>
 
@@ -31,6 +60,10 @@ export default {
   width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+#modal.deactive {
+  display: none;
 }
 
 #modal-body {
@@ -84,15 +117,31 @@ form {
   padding: 20px 0;
 }
 
+.wrapper {
+  width: 70%;
+  position: relative;
+}
+
+img {
+  position: absolute;
+  top: calc(50% - 10px);
+  right: 10px;
+  width: 20px;
+}
+
 input{
-	width: 70%;
+	width: 100%;
   height: 5vh;
-	background: #e0dede;
+  padding-left: 20px;
+	background: #cccccc;
 	justify-content: center;
-	display: flex;
 	border: none;
 	outline: none;
 	border-radius: 5px;
+}
+
+input:enabled {
+  background: #e7e7e7;
 }
 
 input:focus {
@@ -109,7 +158,7 @@ input:focus {
   justify-content: space-between;
 }
 
-button{
+button {
 	width: 30%;
   height: 4.5vh;
 	justify-content: center;
@@ -131,12 +180,16 @@ button{
   transition: background-size .5s, color .5s;
 }
 
-button:hover{
+button:hover, #cancel:hover {
 	background-size: 100% 100%;
 }
 
 #cancel {
   background: #c75431;
-  background-image: linear-gradient(#5ba9bd, #5b96bd);
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size .5s, color .5s;
+  background-image: linear-gradient(#dc5e38, #dc5e38);
 }
 </style>

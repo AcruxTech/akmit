@@ -16,7 +16,7 @@
 </template>
 
 
-<style>
+<style scoped>
 #waves {
   margin-top: -125px;
   width: 100%;

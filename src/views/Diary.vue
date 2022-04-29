@@ -1,10 +1,12 @@
 <template>
   <div id='diary'>
-    <Modal></Modal>
+    <transition name='fade'>
+      <Modal v-if='show' @close='closeModal'></Modal>
+    </transition>
     <div id='background'></div>
     <div id='days'>
       <div class='row'>
-        <Day></Day>
+        <Day @click='show = !show'></Day>
         <Day></Day>
         <Day></Day>
       </div>
@@ -33,11 +35,31 @@ export default {
     Sidenav,
     Day,
     Modal
+  },
+  data() {
+    return {
+      show: false
+    }
+  },
+  methods: {
+    closeModal() {
+      this.show = false;
+    }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 #background {
   height: 100px;
   width: 100%;
