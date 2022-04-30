@@ -1,7 +1,12 @@
 <template>
   <div id='profile'>
+    <Header></Header>
     <div id='card'>
-      <div id='photo'></div>
+      <div id='photo'>
+        <div id='change'>
+          <img src='@/assets/icons/pencil.svg' alt='change'>
+        </div>
+      </div>
       <div id='my-info'>
         <span id='my-name'>Овчинников Владимир</span>
         <span id='class-name'>МБОУ ЦО №7, 9А</span>
@@ -9,7 +14,8 @@
       </div>
       <div id='class-info'>
         <span id='heading'>Мой класс:</span>
-        <Person name='Овчинников Владимир' role='Админ'></Person>
+        <Person v-for='person in persons' :key='person.name' 
+          :name='person.name' :role='person.role'></Person>
       </div>
     </div>
   </div>
@@ -17,10 +23,30 @@
 
 <script>
 import Person from '@/components/Profile/Person.vue';
+import Header from '@/components/Shared/Header.vue';
 
 export default {
   components: {
-    Person
+    Person,
+    Header
+  },
+  data() {
+    return {
+      persons: [
+        {
+          name: 'Овчинников Владимир',
+          role: 'Админ'
+        },
+        {
+          name: 'Петр Иванов',
+          role: 'Ученик'
+        },
+        {
+          name: 'Иван Петров',
+          role: 'Ученик'
+        }
+      ]
+    }
   }
 }
 </script>
@@ -50,6 +76,27 @@ export default {
   height: 175px;
   border-radius: 87.5px;
   background-color: #585858;
+  background: url('../assets/images/default-icon.jpg');
+  background-size: cover;
+  position: relative;
+}
+
+#change {
+  position: relative;
+  margin-top: 73%;
+  margin-left: 73%;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition-duration: .3s;
+}
+
+#change:hover {
+  transform: scale(1.2);
 }
 
 #my-info {

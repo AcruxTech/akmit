@@ -17,19 +17,20 @@ export default {
 <style scoped>
 #person {
   width: 100%;
-  height: 50px;
+  height: 55px;
   border-radius: 7px;
 	box-shadow: 0px 3px 12px #585858;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-left: 25px;
-  background: rgb(132,253,255);
-  background: linear-gradient(0deg, rgba(132,253,255,1) 0%, rgba(189,254,255,1) 27%, rgba(255,255,255,1) 100%);
+  padding: 0 25px;
+  margin: 1vh 0;
+  background: rgb(168,225,255);
+  background: linear-gradient(180deg, rgba(168,225,255,1) 0%, rgba(255,255,255,1) 100%);
 }
 
-#person span {
+#name {
   font-family: 'OswaldMedium';
   font-style: normal;
   font-weight: 500;
@@ -40,14 +41,21 @@ export default {
 }
 
 #role {
-  border-top-right-radius: 7px;
-  border-bottom-right-radius: 7px;
-  height: 100%;
+  border-radius: 7px;
+  height: 70%;
   padding: 0 20px;
-  background-color: rgb(0, 167, 11);
+  background-color: #31b046;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  font-family: 'OpenSansRegular';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 29px;
+  letter-spacing: 0.03em;
+  color: #ffffff;
 }
 </style>
