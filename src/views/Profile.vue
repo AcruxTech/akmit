@@ -1,9 +1,12 @@
 <template>
   <div id='profile'>
+    <transition name='fade'>
+      <UploadModal v-if='showUpload' @close='closeModal'></UploadModal>
+    </transition>
     <Header></Header>
     <div id='card'>
       <div id='photo'>
-        <div id='change'>
+        <div id='change' @click='showModal'>
           <img src='@/assets/icons/pencil.svg' alt='change'>
         </div>
       </div>
@@ -24,11 +27,13 @@
 <script>
 import Person from '@/components/Profile/Person.vue';
 import Header from '@/components/Shared/Header.vue';
+import UploadModal from '@/components/Profile/UploadModal.vue'
 
 export default {
   components: {
     Person,
-    Header
+    Header,
+    UploadModal
   },
   data() {
     return {
@@ -45,13 +50,32 @@ export default {
           name: 'Иван Петров',
           role: 'Ученик'
         }
-      ]
+      ],
+      showUpload: false
+    }
+  },
+  methods: {
+    showModal() {
+      this.showUpload = true;
+    },
+    closeModal() {
+      this.showUpload = false;
     }
   }
 }
 </script>
 
 <style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 #profile {
   width: 100%;
   height: 100vh;
@@ -76,7 +100,7 @@ export default {
   height: 175px;
   border-radius: 87.5px;
   background-color: #585858;
-  background: url('../assets/images/default-icon.jpg');
+  background: url('../assets/images/default-avatar.png');
   background-size: cover;
   position: relative;
 }

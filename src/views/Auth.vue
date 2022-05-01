@@ -7,7 +7,7 @@
           <label for='chk' aria-hidden='true'>Регистрация</label>
           <input type='text' name='txt' placeholder='Придумайте логин' required=''>
           <input type='email' name='email' placeholder='Введите ваш email' required=''>
-          <input type='password' name='pswd' placeholder='Придумайте пароль' required=''>
+          <input type='password' name='pswd' placeholder='Придумайте пароль' required='' autocomplete=''>
           <button>Зарегистрироваться</button>
         </form>
       </div>
@@ -15,7 +15,7 @@
         <form>
           <label for='chk' aria-hidden='true'>Вход</label>
           <input type='email' name='email' placeholder='Ваш логин/email' required=''>
-          <input type='password' name='pswd' placeholder='Ваш пароль' required=''>
+          <input type='password' name='pswd' placeholder='Ваш пароль' required='' autocomplete=''>
           <button>Войти</button>
         </form>
       </div>
@@ -135,7 +135,7 @@ button:hover{
 input:focus {
 	transition-timing-function: ease-in;
 	transition: .2s;
-	box-shadow: 0px 4px 8px #444;
+	box-shadow: 0px 4px 8px #888;
 }
 
 @media (max-width: 768px) {

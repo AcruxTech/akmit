@@ -49,6 +49,8 @@ export default {
 }
 
 #arrow {
+  position: relative;
+  z-index: -1;
   font-size: 24px;
   color: #2C63B5;
   margin-right: 10px;

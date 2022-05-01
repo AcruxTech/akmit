@@ -15,7 +15,6 @@
 // @ is an alias to /src
 import Header from '@/components/Shared/Header.vue'
 import Footer from '@/components/Shared/Footer.vue'
-import Sidenav from '@/components/Shared/Sidenav.vue'
 
 import Background from '@/components/Home/Background.vue'
 import Waves from '@/components/Home/Waves.vue'
@@ -34,8 +33,7 @@ export default {
     OurServices,
     Questions,
     Contacts,
-    Footer,
-    Sidenav
+    Footer
   }
 }
 </script>

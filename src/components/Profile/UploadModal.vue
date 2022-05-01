@@ -2,17 +2,13 @@
   <div id='modal'>
     <div id='modal-body'>
       <div id='heading'>
-        <span id='title'>Понедельник</span>
-        <span id='today'>28 марта 2022 года - 71 школа, 311 кабинет</span>
+        <span id='title'>Изменение фотографии профиля</span>
       </div>  
-      <form method='post'>
-        <div class='wrapper'>
-          <input type='text' name='lesson' required value='Литература' :disabled='inputs.lessonInput'>
-          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("lessonInput")'>
-        </div>
-        <div class='wrapper'>
-          <input type='text' name='homework' required value='Учить стих' :disabled='inputs.homeworkInput'>
-          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("homeworkInput")'>
+      <form method='post' enctype='multipart/form-data' @change='change'>
+        <div id='input-wrapper'>
+          <div id='upload-image'></div>
+          <span id='text'>{{text}}</span>
+          <input type='file' name='file'>
         </div>
         <div id='buttons'>
           <button id='cancel' @click='cancel'>Отмена</button>
@@ -32,10 +28,7 @@ export default {
   },
   data() {
     return {
-      inputs: {
-        lessonInput: 'disabled',
-        homeworkInput: 'disabled'
-      }
+      text: 'Выберите файл'
     }
   },
   methods: {
@@ -46,9 +39,8 @@ export default {
     save(event) {
       event.preventDefault();
     },
-    iconClick(input) {
-      if(this.inputs[input]) this.inputs[input] = null;
-      else this.inputs[input] = 'disabled';
+    change(e) {
+      this.text = `Файл ${e.target.files[0].name} загружен!`;
     }
   }
 }
@@ -57,9 +49,9 @@ export default {
 <style scoped>
 #modal {
   position: fixed;
+  z-index: 100;
   width: 100%;
   height: 100vh;
-  z-index: 100;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -68,9 +60,9 @@ export default {
   top: 50%;
   left: 50%;
   margin-left: -15vw;
-  margin-top: -15vh;
+  margin-top: -20vh;
   width: 30vw;
-  height: 30vh;
+  height: 40vh;
   background-color: #fff;
   border-radius: 12px;
 	box-shadow: 0px 3px 12px #585858;
@@ -96,55 +88,51 @@ export default {
   color: #000;
 }
 
-#today {
-  font-family: 'OpenSansRegular';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-  color: #999999;
-}
-
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: calc(30vh - 50px);
+  height: calc(40vh - 50px);
   padding: 20px 0;
 }
 
-.wrapper {
-  width: 70%;
+#input-wrapper {
   position: relative;
+  width: 70%;
+  height: 60%;
+  border: dashed 5px #000;
 }
 
-img {
+input {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
+
+#upload-image {
   position: absolute;
-  top: calc(50% - 10px);
-  right: 10px;
-  width: 20px;
+  left: calc(50% - 3.5vw);
+  top: 10px;
+  width: 7vw;
+  height: 7vw; 
+  background-color: #000;
+  background-image: url('../../assets/images/upload-icon.png');
+  background-size: cover;
 }
 
-input{
-	width: 100%;
-  height: 5vh;
-  padding-left: 20px;
-	background: #cccccc;
-	justify-content: center;
-	border: none;
-	outline: none;
-	border-radius: 5px;
-}
-
-input:enabled {
-  background: #e7e7e7;
-}
-
-input:focus {
-	transition-timing-function: ease-in;
-	transition: .2s;
-	box-shadow: 0px 4px 8px #444;
+#text {
+  position: absolute;
+  bottom: 3px;
+  width: 100%;
+  text-align: center;
+  font-family: 'OpenSansRegular';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 30px;
+  color: #999999;
 }
 
 #buttons {

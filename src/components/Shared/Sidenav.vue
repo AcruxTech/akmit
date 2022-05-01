@@ -23,7 +23,7 @@ p {
 
 #sidenav {
   height: 100vh;
-  width: 0;
+  width: 250px;
   position: fixed;
   z-index: 1000;
   top: 0;
@@ -32,10 +32,11 @@ p {
   overflow-x: hidden;
   padding-top: 60px;
   transition: 0.5s;
+  margin-left: -250px;
 }
 
 #sidenav.active {
-  width: 250px;
+  margin-left: 0px;
 }
 
 #sidenav a, p {
