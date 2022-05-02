@@ -2,14 +2,14 @@
   <div id='services'>
     <span id='title'>что мы предлагаем?</span>
     <div class='row'>
-      <Service text='бесплатная регистрация' img='vk.svg'></Service>
-      <Service text='мгновенный доступ' img='vk.svg'></Service>
-      <Service text='приятный интерфейс' img='vk.svg'></Service>
+      <Service text='бесплатная регистрация' img='free_register.svg'></Service>
+      <Service text='мгновенный доступ' img='fast_work.svg'></Service>
+      <Service text='приятный интерфейс' img='interface.svg'></Service>
     </div>
     <div class='row'>
-      <Service text='просмотр и редактировнание домашнего задания' img='vk.svg'></Service>
-      <Service text='сохранение расписания' img='vk.svg'></Service>
-      <Service text='полный контроль учебы' img='vk.svg'></Service>
+      <Service text='просмотр и редактировнание домашнего задания' img='pencil_service.svg'></Service>
+      <Service text='сохранение расписания' img='save.svg'></Service>
+      <Service text='полный контроль учебы' img='control.svg'></Service>
     </div>
   </div>
 </template>
@@ -55,6 +55,8 @@ export default {
   width: 60vw;
   margin-bottom: 1.5vw;
 }
+
+
 
 @media(max-width: 768px) {
   #services {
