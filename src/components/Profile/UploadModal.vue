@@ -113,12 +113,12 @@ input {
 
 #upload-image {
   position: absolute;
-  left: calc(50% - 3.5vw);
-  top: 10px;
-  width: 7vw;
-  height: 7vw; 
-  background-color: #000;
-  background-image: url('../../assets/images/upload-icon.png');
+  left: calc(50% - 40px);
+  top: 40px;
+  width: 80px;
+  height: 80px; 
+  background-color: #fff;
+  background-image: url('../../assets/icons/upload.svg');
   background-size: cover;
 }
 

@@ -35,7 +35,9 @@ export default {
 
 <style scoped>
 #day {
-  width: 30%;
+  min-width: 250px;
+  width: 28%;
+  margin: 0 1vw;
   background-color: #fff;
   border-radius: 7px;
 	box-shadow: 0px 3px 12px #585858;

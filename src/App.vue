@@ -9,10 +9,6 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* #nav a.router-link-exact-active {
-  color: #42b983;
-} */
-
 @font-face {
   font-family: 'OswaldMedium'; 
   src: url('assets/fonts/Oswald-Medium.ttf') format('truetype'); 

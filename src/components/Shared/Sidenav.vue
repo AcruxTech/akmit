@@ -3,8 +3,8 @@
       <router-link to='/'>Главная</router-link>
       <router-link to='/auth'>Вход</router-link>
       <router-link to='/auth'>Регистрация</router-link>
-      <p>Ответы на вопросы</p>
-      <p>Контакты</p>
+      <a href='#' v-scroll-to="'#questions'">Ответы на вопросы</a>
+      <a href='#' v-scroll-to="'#contacts'">Контакты</a>
     </div>
 </template>
 
@@ -17,10 +17,6 @@ export default {
 </script>
 
 <style scoped>
-p {
-  margin: 0;
-}
-
 #sidenav {
   height: 100vh;
   width: 250px;
@@ -39,7 +35,7 @@ p {
   margin-left: 0px;
 }
 
-#sidenav a, p {
+#sidenav a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
   font-size: 25px;
@@ -48,7 +44,7 @@ p {
   transition: 0.3s;
 }
 
-#sidenav a:hover, p:hover {
+#sidenav a:hover {
   color: #f1f1f1;
 }
 </style>

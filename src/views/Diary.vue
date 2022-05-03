@@ -5,16 +5,12 @@
     </transition>
     <div id='background'></div>
     <div id='days'>
-      <div class='row'>
-        <Day @click='show = !show'></Day>
-        <Day></Day>
-        <Day></Day>
-      </div>
-      <div class='row'>
-        <Day></Day>
-        <Day></Day>
-        <Day></Day>
-      </div>
+      <Day @click='show = !show'></Day>
+      <Day></Day>
+      <Day></Day>
+      <Day></Day>
+      <Day></Day>
+      <Day></Day>
     </div>
     <Header></Header>
     <Footer></Footer>
@@ -50,6 +46,28 @@ export default {
 </script>
 
 <style scoped>
+#background {
+  height: 100px;
+  width: 100%;
+}
+
+#diary {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#days {
+  width: 60%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s ease;
@@ -60,42 +78,7 @@ export default {
   opacity: 0;
 }
 
-#background {
-  height: 100px;
-  width: 100%;
-  /* background-color: #ececec; */
-}
-
-#diary {
-  /* margin-top: 100px; */
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.row {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-
-#days {
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-}
-
 @media(max-width: 768px) {
-  .row {
-    flex-direction: column;
-  }
-
   #days {
     width: 80%;
   }

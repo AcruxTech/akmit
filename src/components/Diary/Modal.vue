@@ -61,14 +61,12 @@ export default {
   height: 100vh;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #modal-body {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  margin-left: -15vw;
-  margin-top: -15vh;
   width: 30vw;
   height: 30vh;
   background-color: #fff;
@@ -144,7 +142,7 @@ input:enabled {
 input:focus {
 	transition-timing-function: ease-in;
 	transition: .2s;
-	box-shadow: 0px 4px 8px #444;
+	box-shadow: 0px 4px 8px #888;
 }
 
 #buttons {
@@ -188,5 +186,29 @@ button:hover, #cancel:hover {
   background-size: 0% 100%;
   transition: background-size .5s, color .5s;
   background-image: linear-gradient(#dc5e38, #dc5e38);
+}
+
+@media (max-width: 768px) {
+  #modal-body {
+    width: 80%;
+  }
+
+  #heading {
+    height: 65px;
+    flex-direction: column;
+  }
+
+  form {
+    height: calc(30vh - 65px);
+  }
+
+  button {
+    width: 45%;
+  }
+
+  #today {
+    font-size: 15px;
+    line-height: 20px;
+  }
 }
 </style>

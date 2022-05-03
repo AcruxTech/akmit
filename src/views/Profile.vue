@@ -167,4 +167,10 @@ hr {
   justify-content: space-between;
   align-items: center;
 }
+
+@media (max-width: 1024px) {
+  #card {
+    width: 60%;
+  }
+}
 </style>

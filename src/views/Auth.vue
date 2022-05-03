@@ -1,5 +1,8 @@
 <template>
   <div id='auth'>
+		<div id='back' @click='$router.go(-1)'>
+			<span id='text'>&#8617; Назад</span>
+		</div>
     <div id='wrap'>  	
       <input type='checkbox' id='chk' aria-hidden='true'>
       <div class='signup'>
@@ -30,6 +33,33 @@ export default {
 </script>
 
 <style scoped>
+#back {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100px;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+#text {
+	font-family: 'OpenSansRegular';
+  font-style: normal;
+  font-weight: 900;
+  font-size: 25px;
+  line-height: 36px;
+  background: linear-gradient(85deg, #6F6CFF 5%, 
+    rgba(159, 114, 255, 0.5) 100%, 
+    rgba(5, 0, 255, 0.114583) 100%, 
+    #0500FF 100%);
+	background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: #888;
+	padding-left: 50px;
+}
+
 #auth{
 	display: flex;
 	justify-content: center;
@@ -109,10 +139,10 @@ button:hover{
 }
 
 .login{
-  height: 60vh;
+  height: 70vh;
 	background: #eee;
 	border-radius: 60% / 10%;
-	transform: translateY(-180px);
+	transform: translateY(-170px);
 	transition: .8s ease-in-out;
 }
 
@@ -138,9 +168,30 @@ input:focus {
 	box-shadow: 0px 4px 8px #888;
 }
 
-@media (max-width: 768px) {
+@media (min-width: 768px) and (max-width: 1025px) {
+	#wrap{
+		width: 50vw;
+	}
+}
+
+@media (max-width: 767px) {
 	#wrap{
 		width: 80vw;
 	}
+
+	.login{
+		transform: translateY(-130px);
+	}
 }
+
+@media (max-width: 321px) {
+	input {
+		font-size: 0.9em;
+	}
+
+	button {
+		font-size: 0.85em;
+	}
+}
+
 </style>
