@@ -8,18 +8,18 @@
       <div class='signup'>
         <form>
           <label for='chk' aria-hidden='true'>Регистрация</label>
-          <input type='text' name='txt' placeholder='Придумайте логин' required=''>
-          <input type='email' name='email' placeholder='Введите ваш email' required=''>
-          <input type='password' name='pswd' placeholder='Придумайте пароль' required='' autocomplete=''>
-          <button>Зарегистрироваться</button>
+          <input type='text' name='txt' placeholder='Придумайте логин' required='' v-model='register.login'>
+          <input type='email' name='email' placeholder='Введите ваш email' required='' v-model='register.email'>
+          <input type='password' name='pswd' placeholder='Придумайте пароль' required='' autocomplete='' v-model='register.pass'>
+          <button @click='reg'>Зарегистрироваться</button>
         </form>
       </div>
       <div class='login'>
         <form>
           <label for='chk' aria-hidden='true'>Вход</label>
-          <input type='email' name='email' placeholder='Ваш логин/email' required=''>
-          <input type='password' name='pswd' placeholder='Ваш пароль' required='' autocomplete=''>
-          <button>Войти</button>
+          <input type='email' name='email' placeholder='Ваш логин/email' required='' v-model='login.identity'>
+          <input type='password' name='pswd' placeholder='Ваш пароль' required='' autocomplete='' v-model='login.pass'>
+          <button @click='auth'>Войти</button>
         </form>
       </div>
     </div>
@@ -27,8 +27,60 @@
 </template>
 
 <script>
-export default {
+import axios from 'axios'
+import { useToast } from "vue-toastification";
 
+export default {
+	setup() {
+		const toast = useToast();
+		return { toast }
+	},
+	data() {
+		return {
+			register: {
+				login: '',
+				email: '',
+				pass: ''
+			},
+			login: {
+				identity: '',
+				pass: ''
+			}
+		}
+	},
+	methods: {
+		reg(event) {
+			event.preventDefault();
+			if (this.isEmpty(this.register) == false) return;
+			axios.post('http://localhost:33684/api/user/register', this.register)
+				.then(response => {
+					localStorage.token = response.data;
+					this.toast.success('Регистрация прошла успешно!');
+				})
+				.catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+		},
+		auth() {
+			event.preventDefault();
+			if (this.isEmpty(this.login) == false) return;
+			axios.post('http://localhost:33684/api/user/auth', this.login)
+				.then(response => {
+					localStorage.token = response.data;
+					this.toast.success('Авторизация прошла успешно!');
+				})
+				.catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+		},
+		isEmpty(obj) {
+			for(var item in obj) {
+				if (obj[item] == '') {
+					this.toast.error('Заполните все поля!');
+					 return false;
+				}
+			}
+		}
+	},
+	created() {
+		
+	}
 }
 </script>
 
