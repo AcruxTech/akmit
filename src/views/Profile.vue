@@ -28,8 +28,14 @@
 import Person from '@/components/Profile/Person.vue';
 import Header from '@/components/Shared/Header.vue';
 import UploadModal from '@/components/Profile/UploadModal.vue'
+import axios from 'axios'
+import { useToast } from "vue-toastification";
 
 export default {
+  setup() {
+		const toast = useToast();
+		return { toast }
+	},
   components: {
     Person,
     Header,
@@ -61,6 +67,18 @@ export default {
     closeModal() {
       this.showUpload = false;
     }
+  },
+  created() {
+    if (localStorage.token == null) {
+      this.toast.error('Необходима авторизация!');
+      this.$router.push('/auth');
+    }
+
+    axios.get(`http://localhost:33684/api/user/getByToken/${localStorage.token}`)
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
   }
 }
 </script>

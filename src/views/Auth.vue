@@ -10,15 +10,15 @@
           <label for='chk' aria-hidden='true'>Регистрация</label>
           <input type='text' name='txt' placeholder='Придумайте логин' required='' v-model='register.login'>
           <input type='email' name='email' placeholder='Введите ваш email' required='' v-model='register.email'>
-          <input type='password' name='pswd' placeholder='Придумайте пароль' required='' autocomplete='' v-model='register.pass'>
+          <input type='password' name='pswd' placeholder='Придумайте пароль' required='' autocomplete='' v-model='register.password'>
           <button @click='reg'>Зарегистрироваться</button>
         </form>
       </div>
       <div class='login'>
         <form>
           <label for='chk' aria-hidden='true'>Вход</label>
-          <input type='email' name='email' placeholder='Ваш логин/email' required='' v-model='login.identity'>
-          <input type='password' name='pswd' placeholder='Ваш пароль' required='' autocomplete='' v-model='login.pass'>
+          <input type='email' name='email' placeholder='Ваш логин/email' required='' v-model='login.login'>
+          <input type='password' name='pswd' placeholder='Ваш пароль' required='' autocomplete='' v-model='login.password'>
           <button @click='auth'>Войти</button>
         </form>
       </div>
@@ -28,7 +28,7 @@
 
 <script>
 import axios from 'axios'
-import { useToast } from "vue-toastification";
+import { useToast } from 'vue-toastification';
 
 export default {
 	setup() {
@@ -40,11 +40,11 @@ export default {
 			register: {
 				login: '',
 				email: '',
-				pass: ''
+				password: ''
 			},
 			login: {
-				identity: '',
-				pass: ''
+				login: '',
+				password: ''
 			}
 		}
 	},
@@ -58,6 +58,7 @@ export default {
 					this.toast.success('Регистрация прошла успешно!');
 				})
 				.catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+			this.$router.push('/profile');
 		},
 		auth() {
 			event.preventDefault();
@@ -68,12 +69,13 @@ export default {
 					this.toast.success('Авторизация прошла успешно!');
 				})
 				.catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+			this.$router.push('/profile');
 		},
 		isEmpty(obj) {
 			for(var item in obj) {
 				if (obj[item] == '') {
 					this.toast.error('Заполните все поля!');
-					 return false;
+					return false;
 				}
 			}
 		}
