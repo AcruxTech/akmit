@@ -11,8 +11,8 @@
         </div>
       </div>
       <div id='my-info'>
-        <span id='my-name'>Овчинников Владимир</span>
-        <span id='class-name'>МБОУ ЦО №7, 9А</span>
+        <span id='my-name'>{{login}}</span>
+        <span id='class-name'>{{email}}<br>{{role}}</span>
         <hr>
       </div>
       <div id='class-info'>
@@ -47,16 +47,12 @@ export default {
         {
           name: 'Овчинников Владимир',
           role: 'Админ'
-        },
-        {
-          name: 'Петр Иванов',
-          role: 'Ученик'
-        },
-        {
-          name: 'Иван Петров',
-          role: 'Ученик'
         }
       ],
+      login: '',
+      email: '',
+      role: '',
+      classRtoId: 0,
       showUpload: false
     }
   },
@@ -74,9 +70,16 @@ export default {
       this.$router.push('/auth');
     }
 
-    axios.get(`http://localhost:33684/api/user/getByToken/${localStorage.token}`)
+    var content = {
+      'Body': localStorage.token
+    }
+
+    axios.post('http://localhost:33684/api/user/getByToken', content)
       .then(response => {
-        console.log(response.data);
+        this.login = response.data.login;
+        this.email = response.data.email;
+        this.role = response.data.role;
+        this.classRtoId = response.data.classRtoId;
       })
       .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
   }
@@ -170,6 +173,7 @@ hr {
 }
 
 #class-name {
+  text-align: center;
   font-family: 'OpenSansRegular';
   font-style: normal;
   font-weight: 400;

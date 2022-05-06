@@ -56,9 +56,9 @@ export default {
 				.then(response => {
 					localStorage.token = response.data;
 					this.toast.success('Регистрация прошла успешно!');
+					this.$router.push('/profile');
 				})
 				.catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
-			this.$router.push('/profile');
 		},
 		auth() {
 			event.preventDefault();
@@ -67,9 +67,9 @@ export default {
 				.then(response => {
 					localStorage.token = response.data;
 					this.toast.success('Авторизация прошла успешно!');
+				this.$router.push('/profile');
 				})
 				.catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
-			this.$router.push('/profile');
 		},
 		isEmpty(obj) {
 			for(var item in obj) {
