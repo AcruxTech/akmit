@@ -25,7 +25,11 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      text: 'Выберите файл'
+      text: 'Выберите файл',
+      update: {
+        token: localStorage.token,
+        newUrl: ''
+      }
     }
   },
   methods: {
@@ -70,6 +74,11 @@ export default {
           },
         })
         .then((res) => {
+          this.update.newUrl = `https://api.selcdn.ru/v1/SEL_209703/akmit/${localStorage.login}.${extension}`;
+          axios
+            .put('http://localhost:33684/api/user/change', this.update)
+            .then((res) => console.log(res))
+            .catch((err) => console.log(err));
           console.log(res);
         })
         .catch((err) => {

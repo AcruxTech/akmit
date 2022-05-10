@@ -5,7 +5,7 @@
     </transition>
     <Header></Header>
     <div id='card'>
-      <div id='photo'>
+      <div id='photo' v-bind:style='{backgroundImage: `url(${url})`}'>
         <div id='change' @click='showModal'>
           <img src='@/assets/icons/pencil.svg' alt='change'>
         </div>
@@ -52,6 +52,7 @@ export default {
       login: '',
       email: '',
       role: '',
+      url: '',
       classRtoId: 0,
       showUpload: false
     }
@@ -80,13 +81,12 @@ export default {
         localStorage.login = this.login;
         this.email = response.data.email;
         this.role = response.data.role;
+        this.url = response.data.url;
         this.classRtoId = response.data.classRtoId;
       })
       .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
 
     if (this.classRtoId == 0) return; 
-
-    
 
     axios.get(`http://localhost:33684/api/user/getById/1`)
       .then(response => {
