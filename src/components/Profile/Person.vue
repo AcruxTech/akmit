@@ -84,48 +84,4 @@ export default {
   text-align: center;
   letter-spacing: 0.02em;
 }
-
-/* #person {
-  width: 100%;
-  height: 55px;
-  border-radius: 7px;
-	box-shadow: 0px 3px 12px #585858;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 25px;
-  margin: 1vh 0;
-  background: rgb(168,225,255);
-  background: linear-gradient(180deg, rgba(168,225,255,1) 0%, rgba(255,255,255,1) 100%);
-}
-
-#name {
-  font-family: 'OswaldMedium';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 32px;
-  text-align: center;
-  letter-spacing: 0.02em;
-}
-
-#role {
-  border-radius: 7px;
-  height: 70%;
-  padding: 0 20px;
-  background-color: #31b046;
-  color: #fff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-family: 'OpenSansRegular';
-  font-style: normal;
-  font-weight: 900;
-  font-size: 18px;
-  line-height: 29px;
-  letter-spacing: 0.03em;
-  color: #ffffff;
-} */
 </style>

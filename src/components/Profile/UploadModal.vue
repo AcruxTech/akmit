@@ -4,11 +4,11 @@
       <div id='heading'>
         <span id='title'>Изменение фотографии профиля</span>
       </div>  
-      <form method='post' enctype='multipart/form-data' @change='change'>
+      <form id='form' method='put' enctype='multipart/formdata' @change='change'>
         <div id='input-wrapper'>
           <div id='upload-image'></div>
           <span id='text'>{{text}}</span>
-          <input type='file' name='file'>
+          <input type='file' name='file' accept='.jpg,.png'>
         </div>
         <div id='buttons'>
           <button id='cancel' @click='cancel'>Отмена</button>
@@ -20,12 +20,9 @@
 </template>
 
 <script>
-import Day from '@/components/Diary/Day.vue'
+import axios from 'axios'
 
 export default {
-  components: { 
-    Day 
-  },
   data() {
     return {
       text: 'Выберите файл'
@@ -36,11 +33,48 @@ export default {
       event.preventDefault();
       this.$emit('close');
     },
-    save(event) {
-      event.preventDefault();
+    save(e) {
+      e.preventDefault();
+
+      if ((!localStorage.tokenS3 && !localStorage.tokenS3_Expire) || new Date().getTime() > localStorage.tokenS3_Expire) {
+        console.log(1);
+        axios
+          .get(`http://localhost:33684/api/user/getTokenS3`)
+          .then((res) => {
+            localStorage.tokenS3 = res.data[2].Value;
+            localStorage.tokenS3_Expire = new Date().getTime() + 1000 * 60 * 60 * 24;
+            this.changePic();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      else {
+        this.changePic();
+      }
     },
-    change(e) {
-      this.text = `Файл ${e.target.files[0].name} загружен!`;
+    change(event) {
+      this.text = `Файл ${event.target.files[0].name} загружен!`;
+    },
+    changePic() {
+      const form = document.querySelector("form");
+      const formData = new FormData(form);
+      const name = formData.get('file').name;             // with extension
+      const extension = name.substring(name.length - 3);
+
+      axios
+        .put(`https://api.selcdn.ru/v1/SEL_209703/akmit/${localStorage.login + '.' + extension}`, formData.get('file'), {
+          headers: {
+            'Content-Type': `image/${extension}`,
+            'X-Auth-Token': localStorage.tokenS3,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 }

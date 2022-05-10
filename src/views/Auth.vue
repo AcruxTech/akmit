@@ -60,7 +60,7 @@ export default {
 				})
 				.catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
 		},
-		auth() {
+		auth(event) {
 			event.preventDefault();
 			if (this.isEmpty(this.login) == false) return;
 			axios.post('http://localhost:33684/api/user/auth', this.login)
@@ -81,7 +81,7 @@ export default {
 		}
 	},
 	created() {
-		
+		if (localStorage.token) this.$router.go(-1);
 	}
 }
 </script>

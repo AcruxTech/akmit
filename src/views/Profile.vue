@@ -65,7 +65,7 @@ export default {
     }
   },
   created() {
-    if (localStorage.token == null) {
+    if (!localStorage.token) {
       this.toast.error('Необходима авторизация!');
       this.$router.push('/auth');
     }
@@ -77,9 +77,20 @@ export default {
     axios.post('http://localhost:33684/api/user/getByToken', content)
       .then(response => {
         this.login = response.data.login;
+        localStorage.login = this.login;
         this.email = response.data.email;
         this.role = response.data.role;
         this.classRtoId = response.data.classRtoId;
+      })
+      .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+
+    if (this.classRtoId == 0) return; 
+
+    
+
+    axios.get(`http://localhost:33684/api/user/getById/1`)
+      .then(response => {
+        console.log(response.data);
       })
       .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
   }
