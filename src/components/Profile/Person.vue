@@ -15,8 +15,14 @@
 <script>
 export default {
   props: {
-    name: String,
-    role: String
+    id: Number
+  },
+  data() {
+    return {
+      url: '',
+      name: 'Имя',
+      role: 'Админ'
+    }
   }
 }
 </script>
@@ -83,5 +89,17 @@ export default {
   line-height: 32px;
   text-align: center;
   letter-spacing: 0.02em;
+}
+
+#role {
+  margin-right: 15px;
+  font-family: 'OswaldMedium';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 32px;
+  text-align: center;
+  letter-spacing: 0.02em;
+  color: rgb(37, 92, 0);
 }
 </style>

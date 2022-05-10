@@ -21,8 +21,13 @@
 
 <script>
 import axios from 'axios'
+import { useToast } from "vue-toastification";
 
 export default {
+  setup() {
+		const toast = useToast();
+		return { toast }
+	},
   data() {
     return {
       text: 'Выберите файл',
@@ -41,7 +46,6 @@ export default {
       e.preventDefault();
 
       if ((!localStorage.tokenS3 && !localStorage.tokenS3_Expire) || new Date().getTime() > localStorage.tokenS3_Expire) {
-        console.log(1);
         axios
           .get(`http://localhost:33684/api/user/getTokenS3`)
           .then((res) => {
@@ -77,9 +81,11 @@ export default {
           this.update.newUrl = `https://api.selcdn.ru/v1/SEL_209703/akmit/${localStorage.login}.${extension}`;
           axios
             .put('http://localhost:33684/api/user/change', this.update)
-            .then((res) => console.log(res))
+            .then((res) => {
+              this.toast.success('Обновление прошло успешно!');
+              this.$emit('close');
+            })
             .catch((err) => console.log(err));
-          console.log(res);
         })
         .catch((err) => {
           console.log(err);

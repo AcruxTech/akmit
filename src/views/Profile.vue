@@ -1,7 +1,7 @@
 <template>
   <div id='profile'>
     <transition name='fade'>
-      <UploadModal v-if='showUpload' @close='closeModal'></UploadModal>
+      <UploadModal v-if='showUpload' @close='closeModal()'></UploadModal>
     </transition>
     <Header></Header>
     <div id='card'>
@@ -17,8 +17,7 @@
       </div>
       <div id='class-info'>
         <span id='heading'>Мой класс:</span>
-        <Person v-for='person in persons' :key='person.name' 
-          :name='person.name' :role='person.role'></Person>
+        <Person v-for='id in ids' :key='id' :id='id'></Person>
       </div>
     </div>
   </div>
@@ -29,7 +28,7 @@ import Person from '@/components/Profile/Person.vue';
 import Header from '@/components/Shared/Header.vue';
 import UploadModal from '@/components/Profile/UploadModal.vue'
 import axios from 'axios'
-import { useToast } from "vue-toastification";
+import { useToast } from 'vue-toastification';
 
 export default {
   setup() {
@@ -43,6 +42,10 @@ export default {
   },
   data() {
     return {
+      ids: [
+        'xdew',
+        'edx'
+      ],
       persons: [
         {
           name: 'Овчинников Владимир',
@@ -63,6 +66,30 @@ export default {
     },
     closeModal() {
       this.showUpload = false;
+    },
+    getInfo() {
+      var content = {
+        'Body': localStorage.token
+      }
+
+      axios.post('http://localhost:33684/api/user/getByToken', content)
+        .then(response => {
+          this.login = response.data.login;
+          localStorage.login = this.login;
+          this.email = response.data.email;
+          this.role = response.data.role;
+          this.url = response.data.url;
+          this.classRtoId = response.data.classRtoId;
+        })
+        .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+
+      if (this.classRtoId == 0) return; 
+
+      axios.get(`http://localhost:33684/api/user/getById/1`)
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
     }
   },
   created() {
@@ -70,29 +97,7 @@ export default {
       this.toast.error('Необходима авторизация!');
       this.$router.push('/auth');
     }
-
-    var content = {
-      'Body': localStorage.token
-    }
-
-    axios.post('http://localhost:33684/api/user/getByToken', content)
-      .then(response => {
-        this.login = response.data.login;
-        localStorage.login = this.login;
-        this.email = response.data.email;
-        this.role = response.data.role;
-        this.url = response.data.url;
-        this.classRtoId = response.data.classRtoId;
-      })
-      .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
-
-    if (this.classRtoId == 0) return; 
-
-    axios.get(`http://localhost:33684/api/user/getById/1`)
-      .then(response => {
-        console.log(response.data);
-      })
-      .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+    this.getInfo();
   }
 }
 </script>

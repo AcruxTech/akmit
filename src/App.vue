@@ -29,4 +29,18 @@
   font-style: normal; 
   font-weight: normal; 
 } 
+
+@font-face {
+  font-family: 'SyneMedium'; 
+  src: url('assets/fonts/Syne-Medium.ttf') format('truetype'); 
+  font-style: normal; 
+  font-weight: normal; 
+} 
+
+@font-face {
+  font-family: 'SyneRegular'; 
+  src: url('assets/fonts/Syne-Regular.ttf') format('truetype'); 
+  font-style: normal; 
+  font-weight: normal; 
+} 
 </style>
