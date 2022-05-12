@@ -5,6 +5,8 @@
         <span id='title'>Изменение фотографии профиля</span>
       </div>  
       <form id='form' method='put' enctype='multipart/formdata' @change='change'>
+        <input type='login' name='login' placeholder='Новый логин (необязательно)' required='' v-model='update.newLogin'>
+        <input type='email' name='email' placeholder='Новая почта (необязательно)' required='' v-model='update.newEmail'>
         <div id='input-wrapper'>
           <div id='upload-image'></div>
           <span id='text'>{{text}}</span>
@@ -21,7 +23,7 @@
 
 <script>
 import axios from 'axios'
-import { useToast } from "vue-toastification";
+import { useToast } from 'vue-toastification';
 
 export default {
   setup() {
@@ -31,9 +33,12 @@ export default {
   data() {
     return {
       text: 'Выберите файл',
+      isChangedPic: false,
       update: {
+        newLogin: '',
+        newEmail: '',
+        newUrl: '',
         token: localStorage.token,
-        newUrl: ''
       }
     }
   },
@@ -44,8 +49,11 @@ export default {
     },
     save(e) {
       e.preventDefault();
+      console.log(this.isChangedPic);
 
-      if ((!localStorage.tokenS3 && !localStorage.tokenS3_Expire) || new Date().getTime() > localStorage.tokenS3_Expire) {
+      //if ((!localStorage.tokenS3 && !localStorage.tokenS3_Expire) || new Date().getTime() > localStorage.tokenS3_Expire) {
+      if (this.isChangedPic) {
+        this.isChangedPic = false;
         axios
           .get(`http://localhost:33684/api/user/getTokenS3`)
           .then((res) => {
@@ -58,11 +66,12 @@ export default {
           });
       }
       else {
-        this.changePic();
+        this.changeData();
       }
     },
     change(event) {
       this.text = `Файл ${event.target.files[0].name} загружен!`;
+      this.isChangedPic = true;
     },
     changePic() {
       const form = document.querySelector("form");
@@ -79,6 +88,7 @@ export default {
         })
         .then((res) => {
           this.update.newUrl = `https://api.selcdn.ru/v1/SEL_209703/akmit/${localStorage.login}.${extension}`;
+          console.log(this.update);
           axios
             .put('http://localhost:33684/api/user/change', this.update)
             .then((res) => {
@@ -90,6 +100,16 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    changeData() {
+      console.log(this.update);
+      axios
+        .put('http://localhost:33684/api/user/change', this.update)
+        .then((res) => {
+          this.toast.success('Обновление прошло успешно!');
+          this.$emit('close');
+        })
+        .catch((err) => console.log(err));
     }
   }
 }
@@ -153,7 +173,7 @@ form {
   border: dashed 5px #000;
 }
 
-input {
+input[type='file'] {
   width: 100%;
   height: 100%;
   outline: none;

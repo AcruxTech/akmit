@@ -43,14 +43,7 @@ export default {
   data() {
     return {
       ids: [
-        'xdew',
-        'edx'
-      ],
-      persons: [
-        {
-          name: 'Овчинников Владимир',
-          role: 'Админ'
-        }
+        1
       ],
       login: '',
       email: '',

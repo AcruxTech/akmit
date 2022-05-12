@@ -3,7 +3,7 @@
     <div id='main-data'>
       <div id='circle-first'>
         <div id='circle-two'>
-          <div id='photo'></div>
+          <div id='photo' v-bind:style='{backgroundImage: `url(${url})`}'></div>
         </div>
       </div>
       <span id='name'>{{name}}</span>
@@ -13,6 +13,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: {
     id: Number
@@ -20,9 +22,21 @@ export default {
   data() {
     return {
       url: '',
-      name: 'Имя',
-      role: 'Админ'
+      name: 'name',
+      role: 'role'
     }
+  },
+  created() {
+    axios
+      .get(`http://localhost:33684/api/user/getById/${this.id}`)
+      .then((res) => {
+        this.url = res.data.url;
+        this.name = res.data.login;
+        this.role = res.data.role;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 }
 </script>
