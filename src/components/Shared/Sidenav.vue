@@ -1,10 +1,17 @@
 <template>
     <div id="sidenav" v-bind:class='{active: show}'>
       <router-link to='/'>Главная</router-link>
-      <router-link to='/auth'>Вход</router-link>
-      <router-link to='/auth'>Регистрация</router-link>
-      <a href='#' v-scroll-to="'#questions'">Ответы на вопросы</a>
-      <a href='#' v-scroll-to="'#contacts'">Контакты</a>
+      <template v-if='isLogin'>
+        <router-link to='/auth'>Вход</router-link>
+        <router-link to='/auth'>Регистрация</router-link>
+        <a href='#' v-scroll-to="'#questions'">Ответы на вопросы</a>
+        <a href='#' v-scroll-to="'#contacts'">Контакты</a>
+      </template>
+      <template v-else>
+        <router-link to='/profile'>Профиль</router-link>
+        <router-link to='/diary'>Дневник</router-link>
+        <a href='#'>Выйти из системы</a>
+      </template>
     </div>
 </template>
 
@@ -12,6 +19,11 @@
 export default {
   props: {
     show: Boolean
+  },
+  data() {
+    return {
+      isLogin: localStorage.login ? false : true,
+    }
   }
 }
 </script>

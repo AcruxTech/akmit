@@ -2,15 +2,15 @@
   <div id='modal'>
     <div id='modal-body'>
       <div id='heading'>
-        <span id='title'>Изменение фотографии профиля</span>
+        <span id='title'>Изменение профиля</span>
       </div>  
-      <form id='form' method='put' enctype='multipart/formdata' @change='change'>
-        <input type='login' name='login' placeholder='Новый логин (необязательно)' required='' v-model='update.newLogin'>
-        <input type='email' name='email' placeholder='Новая почта (необязательно)' required='' v-model='update.newEmail'>
+      <form id='form' method='put' enctype='multipart/formdata'>
+        <input class='inputs' type='login' name='login' placeholder='Новый логин (необязательно)' v-model='update.newLogin'>
+        <input class='inputs' type='email' name='email' placeholder='Новая почта (необязательно)' v-model='update.newEmail'>
         <div id='input-wrapper'>
           <div id='upload-image'></div>
           <span id='text'>{{text}}</span>
-          <input type='file' name='file' accept='.jpg,.png'>
+          <input type='file' name='file' accept='.jpg,.png' @change='change'>
         </div>
         <div id='buttons'>
           <button id='cancel' @click='cancel'>Отмена</button>
@@ -49,7 +49,6 @@ export default {
     },
     save(e) {
       e.preventDefault();
-      console.log(this.isChangedPic);
 
       //if ((!localStorage.tokenS3 && !localStorage.tokenS3_Expire) || new Date().getTime() > localStorage.tokenS3_Expire) {
       if (this.isChangedPic) {
@@ -74,7 +73,7 @@ export default {
       this.isChangedPic = true;
     },
     changePic() {
-      const form = document.querySelector("form");
+      const form = document.querySelector('form');
       const formData = new FormData(form);
       const name = formData.get('file').name;             // with extension
       const extension = name.substring(name.length - 3);
@@ -102,7 +101,6 @@ export default {
         });
     },
     changeData() {
-      console.log(this.update);
       axios
         .put('http://localhost:33684/api/user/change', this.update)
         .then((res) => {
@@ -129,9 +127,9 @@ export default {
   top: 50%;
   left: 50%;
   margin-left: -15vw;
-  margin-top: -20vh;
+  margin-top: -25vh;
   width: 30vw;
-  height: 40vh;
+  height: 50vh;
   background-color: #fff;
   border-radius: 12px;
 	box-shadow: 0px 3px 12px #585858;
@@ -162,15 +160,33 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: calc(40vh - 50px);
+  height: calc(50vh - 50px);
   padding: 20px 0;
 }
 
 #input-wrapper {
   position: relative;
   width: 70%;
-  height: 60%;
+  height: 45%;
   border: dashed 5px #000;
+}
+
+.inputs {
+	width: 70%;
+  height: 5vh;
+	background: #e0dede;
+	justify-content: center;
+	display: flex;
+  padding: 2vh;
+	border: none;
+	outline: none;
+	border-radius: 5px;
+}
+
+.inputs:focus {
+	transition-timing-function: ease-in;
+	transition: .2s;
+	box-shadow: 0px 4px 8px #888;
 }
 
 input[type='file'] {

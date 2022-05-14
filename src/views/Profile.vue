@@ -15,9 +15,16 @@
         <span id='class-name'>{{email}}<br>{{role}}</span>
         <hr>
       </div>
-      <div id='class-info'>
-        <span id='heading'>Мой класс:</span>
+      <div id='class-info' v-if='classRtoId != 0'>
+        <span class='heading'>Мой класс:</span>
         <Person v-for='id in ids' :key='id' :id='id'></Person>
+      </div>
+      <div id='else-div' v-else>
+        <span class='heading' id='class-heading'>Вы не состоите в классе. Создайте новый или присоединитесь к уже существуещему прямо сейчас!</span>
+         <div id='buttons'>
+          <button type='button' @click='createClass'>Создать</button>
+          <button type='button' @click='joinClass'>Присоединиться</button>
+        </div>
       </div>
     </div>
   </div>
@@ -61,7 +68,7 @@ export default {
       this.showUpload = false;
     },
     getInfo() {
-      var content = {
+      let content = {
         'Body': localStorage.token
       }
 
@@ -83,6 +90,18 @@ export default {
           console.log(response.data);
         })
         .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+    },
+    createClass() {
+      var content = {
+        'Title': 'test title',
+        'Token': localStorage.token
+      }
+
+      axios.post('http://localhost:33684/api/class/create', content)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
     }
   },
   created() {
@@ -96,16 +115,6 @@ export default {
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
 #profile {
   width: 100%;
   height: 100vh;
@@ -161,7 +170,7 @@ export default {
   align-items: center;
 }
 
-#my-name, #heading {
+#my-name, .heading {
   font-family: 'OswaldMedium';
   font-style: normal;
   font-weight: 500;
@@ -172,9 +181,14 @@ export default {
   color: #000;
 }
 
-#heading {
+.heading {
   font-size: 27px;
   line-height: 43px;
+}
+
+#class-heading {
+  font-size: 20px;
+  line-height: 32px;
 }
 
 hr {
@@ -198,6 +212,60 @@ hr {
   justify-content: space-between;
   align-items: center;
 }
+
+#else-div {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+button {
+	width: 30%;
+  margin-top: 1vh;
+  height: 4vh;
+	justify-content: center;
+	display: block;
+	color: #fff;
+	background: #2C63B5;
+	font-size: 1em;
+	font-weight: bold;
+	outline: none;
+	border: none;
+	border-radius: 5px;
+	transition: .2s ease-in;
+	cursor: pointer;
+
+	background-image: linear-gradient(#316dc7, #316dc7);
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size .5s, color .5s;
+}
+
+button:hover {
+	background-size: 100% 100%;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 
 @media (max-width: 1024px) {
   #card {
