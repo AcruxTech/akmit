@@ -1,8 +1,9 @@
 <template>
   <div id='profile'>
-    <transition name='fade'>
+    <transition-group name='fade'>
       <UploadModal v-if='showUpload' @close='closeModal()'></UploadModal>
-    </transition>
+      <CreateModal v-if='showCreate' @close='closeCreate()'></CreateModal>
+    </transition-group>
     <Header></Header>
     <div id='card'>
       <div id='photo' v-bind:style='{backgroundImage: `url(${url})`}'>
@@ -12,7 +13,7 @@
       </div>
       <div id='my-info'>
         <span id='my-name'>{{login}}</span>
-        <span id='class-name'>{{email}}<br>{{role}}</span>
+        <span id='class-name'>{{email}}<br>{{role}} - {{comment}}</span>
         <hr>
       </div>
       <div id='class-info' v-if='classRtoId != 0'>
@@ -34,6 +35,7 @@
 import Person from '@/components/Profile/Person.vue';
 import Header from '@/components/Shared/Header.vue';
 import UploadModal from '@/components/Profile/UploadModal.vue'
+import CreateModal from '@/components/Profile/CreateModal.vue'
 import axios from 'axios'
 import { useToast } from 'vue-toastification';
 
@@ -45,7 +47,8 @@ export default {
   components: {
     Person,
     Header,
-    UploadModal
+    UploadModal,
+    CreateModal
   },
   data() {
     return {
@@ -56,6 +59,7 @@ export default {
       email: '',
       role: '',
       url: '',
+      comment: 'не в классе',
       classRtoId: 0,
       showUpload: false
     }
@@ -74,6 +78,7 @@ export default {
 
       axios.post('http://localhost:33684/api/user/getByToken', content)
         .then(response => {
+          console.log(response);
           this.login = response.data.login;
           localStorage.login = this.login;
           this.email = response.data.email;

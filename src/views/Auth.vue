@@ -17,8 +17,8 @@
       <div class='login'>
         <form>
           <label for='chk' aria-hidden='true'>Вход</label>
-          <input type='email' name='email' placeholder='Ваш логин/email' required='' v-model='login.login'>
-          <input type='password' name='pswd' placeholder='Ваш пароль' required='' autocomplete='' v-model='login.password'>
+          <input type='email' name='email' placeholder='Ваш логин/email' required='' v-model='loginData.login'>
+          <input type='password' name='pswd' placeholder='Ваш пароль' required='' autocomplete='' v-model='loginData.password'>
           <button @click='auth'>Войти</button>
         </form>
       </div>
@@ -42,7 +42,7 @@ export default {
 				email: '',
 				password: ''
 			},
-			login: {
+			loginData: {
 				login: '',
 				password: ''
 			}
@@ -62,9 +62,10 @@ export default {
 		},
 		auth(event) {
 			event.preventDefault();
-			if (this.isEmpty(this.login) == false) return;
-			axios.post('http://localhost:33684/api/user/auth', this.login)
+			if (this.isEmpty(this.loginData) == false) return;
+			axios.post('http://localhost:33684/api/user/auth', this.loginData)
 				.then(response => {
+					console.log(response);
 					localStorage.token = response.data;
 					this.toast.success('Авторизация прошла успешно!');
 				this.$router.push('/profile');
