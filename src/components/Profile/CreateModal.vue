@@ -66,9 +66,9 @@ export default {
   top: 50%;
   left: 50%;
   margin-left: -15vw;
-  margin-top: -25vh;
+  margin-top: -15vh;
   width: 30vw;
-  height: 50vh;
+  height: 30vh;
   background-color: #fff;
   border-radius: 12px;
 	box-shadow: 0px 3px 12px #585858;
@@ -99,7 +99,7 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: calc(50vh - 50px);
+  height: calc(30vh - 50px);
   padding: 20px 0;
 }
 

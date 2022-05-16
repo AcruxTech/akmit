@@ -1,13 +1,13 @@
 <template>
   <div id='profile'>
     <transition-group name='fade'>
-      <UploadModal v-if='showUpload' @close='closeModal()'></UploadModal>
-      <CreateModal v-if='showCreate' @close='closeCreate()'></CreateModal>
+      <UploadModal v-if='showUpload' @close='showUpload = false'></UploadModal>
+      <CreateModal v-if='showCreate' @close='showCreate = false'></CreateModal>
     </transition-group>
     <Header></Header>
     <div id='card'>
       <div id='photo' v-bind:style='{backgroundImage: `url(${url})`}'>
-        <div id='change' @click='showModal'>
+        <div id='change' @click='showUpload = true'>
           <img src='@/assets/icons/pencil.svg' alt='change'>
         </div>
       </div>
@@ -23,7 +23,7 @@
       <div id='else-div' v-else>
         <span class='heading' id='class-heading'>Вы не состоите в классе. Создайте новый или присоединитесь к уже существуещему прямо сейчас!</span>
          <div id='buttons'>
-          <button type='button' @click='createClass'>Создать</button>
+          <button type='button' @click='showCreate = true'>Создать</button>
           <button type='button' @click='joinClass'>Присоединиться</button>
         </div>
       </div>
@@ -61,16 +61,11 @@ export default {
       url: '',
       comment: 'не в классе',
       classRtoId: 0,
-      showUpload: false
+      showUpload: false,
+      showCreate: false
     }
   },
   methods: {
-    showModal() {
-      this.showUpload = true;
-    },
-    closeModal() {
-      this.showUpload = false;
-    },
     getInfo() {
       let content = {
         'Body': localStorage.token
@@ -78,7 +73,6 @@ export default {
 
       axios.post('http://localhost:33684/api/user/getByToken', content)
         .then(response => {
-          console.log(response);
           this.login = response.data.login;
           localStorage.login = this.login;
           this.email = response.data.email;
@@ -93,18 +87,6 @@ export default {
       axios.get(`http://localhost:33684/api/user/getById/1`)
         .then(response => {
           console.log(response.data);
-        })
-        .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
-    },
-    createClass() {
-      var content = {
-        'Title': 'test title',
-        'Token': localStorage.token
-      }
-
-      axios.post('http://localhost:33684/api/class/create', content)
-        .then(response => {
-          console.log(response);
         })
         .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
     }
