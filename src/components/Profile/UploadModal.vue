@@ -13,8 +13,8 @@
           <input type='file' name='file' accept='.jpg,.png' @change='change'>
         </div>
         <div id='buttons'>
-          <button id='cancel' @click='cancel'>Отмена</button>
-          <button @click='save'>Сохранить</button>
+          <button type='button' id='cancel' @click='$emit("close")'>Отмена</button>
+          <button type='button' @click='save'>Сохранить</button>
         </div>
       </form>
     </div>
@@ -43,10 +43,6 @@ export default {
     }
   },
   methods: {
-    cancel(event) {
-      event.preventDefault();
-      this.$emit('close');
-    },
     save(e) {
       e.preventDefault();
 

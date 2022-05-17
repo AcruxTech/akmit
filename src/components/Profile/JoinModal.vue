@@ -5,7 +5,8 @@
         <span id='title'>Создание класса</span>
       </div>  
       <form id='form'>
-        <input type='text' name='title' placeholder='Название класса' v-model='create.title'>
+        <input type='text' name='title' placeholder='Название класса' v-model='join.title'>
+        <input type='number' name='code' placeholder='Секретный код' v-model='join.secretCode'>
         <div id='buttons'>
           <button type='button' id='cancel' @click='$emit("close")'>Отмена</button>
           <button type='button' @click='save'>Сохранить</button>
@@ -26,23 +27,19 @@ export default {
 	},
   data() {
     return {
-      create: {
-        title: '',
+      join: {
         token: localStorage.token,
+        title: '',
+        secretCode: 0
       }
     }
   },
   methods: {
-    cancel(e) {
-      e.preventDefault();
-      this.$emit('close');
-    },
     save(e) {
       e.preventDefault();      
-      axios
-        .post('http://localhost:33684/api/class/create', this.create)
+      console.log(this.join);
+      axios.post('http://localhost:33684/api/class/join', this.join)
         .then((res) => {
-          this.toast.success('Вы создали класс!');
           this.$emit('getInfo');
           this.$emit('close');
         })

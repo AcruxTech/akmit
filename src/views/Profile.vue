@@ -3,6 +3,7 @@
     <transition-group name='fade'>
       <UploadModal v-if='showUpload' @close='showUpload = false' @getInfo='getInfo()'></UploadModal>
       <CreateModal v-if='showCreate' @close='showCreate = false' @getInfo='getInfo()'></CreateModal>
+      <JoinModal v-if='showJoin' @close='showJoin = false' @getInfo='getInfo()'></JoinModal>
     </transition-group>
     <Header></Header>
     <div id='card'>
@@ -20,14 +21,14 @@
         <span class='heading'>Мой класс:</span>
         <Person v-for='classmate in classmates' :key='classmate.login' :login='classmate.login' :url='classmate.url' :role='classmate.role'></Person>
         <div id='buttons'>
-          <button type='button' id='cancel' @click='leaveClass'>Выйти из класса</button>
+          <button type='button' id='cancel' @click='leaveClass()'>Выйти из класса</button>
         </div>
       </div>
       <div id='else-div' v-else>
         <span class='heading' id='class-heading'>Вы не состоите в классе. Создайте новый или присоединитесь к уже существуещему прямо сейчас!</span>
          <div id='buttons'>
-          <button type='button' @click='showCreate = true' @close='showCreate = false'>Создать</button>
-          <button type='button' @click='joinClass'>Присоединиться</button>
+          <button type='button' @click='showCreate = true'>Создать</button>
+          <button type='button' @click='showJoin = true'>Присоединиться</button>
         </div>
       </div>
     </div>
@@ -39,6 +40,7 @@ import Person from '@/components/Profile/Person.vue';
 import Header from '@/components/Shared/Header.vue';
 import UploadModal from '@/components/Profile/UploadModal.vue'
 import CreateModal from '@/components/Profile/CreateModal.vue'
+import JoinModal from '@/components/Profile/JoinModal.vue'
 import axios from 'axios'
 import { useToast } from 'vue-toastification';
 
@@ -51,7 +53,8 @@ export default {
     Person,
     Header,
     UploadModal,
-    CreateModal
+    CreateModal,
+    JoinModal
   },
   data() {
     return {
@@ -63,7 +66,8 @@ export default {
       comment: 'не в классе',
       classRtoId: 0,
       showUpload: false,
-      showCreate: false
+      showCreate: false,
+      showJoin: false
     }
   },
   methods: {
@@ -83,6 +87,12 @@ export default {
 
           if (this.classRtoId == 0) return; 
 
+          axios.get(`http://localhost:33684/api/class/${this.classRtoId}`)
+            .then(response => {
+              this.comment = `${response.data.title} (Код: ${response.data.secretCode})`
+            })
+            .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+
           axios.get(`http://localhost:33684/api/user/getByClassId/${this.classRtoId}`)
             .then(response => {
               this.classmates.length = 0;
@@ -97,6 +107,15 @@ export default {
             })
             .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
           })
+        .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+    },
+    leaveClass() {
+      axios.post(`http://localhost:33684/api/class/leave`, {'Body': localStorage.token})
+        .then(response => {
+          this.comment = 'не в классе';
+          this.toast.info('Вы успешно покинули класс');
+          this.getInfo();
+        })
         .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
     }
   },
