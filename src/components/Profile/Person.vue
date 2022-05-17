@@ -6,7 +6,7 @@
           <div id='photo' v-bind:style='{backgroundImage: `url(${url})`}'></div>
         </div>
       </div>
-      <span id='name'>{{name}}</span>
+      <span id='name'>{{login}}</span>
     </div>
     <span id='role'>{{role}}</span>
   </div>
@@ -17,26 +17,9 @@ import axios from 'axios'
 
 export default {
   props: {
-    id: Number
-  },
-  data() {
-    return {
-      url: '',
-      name: 'name',
-      role: 'role'
-    }
-  },
-  created() {
-    axios
-      .get(`http://localhost:33684/api/user/getById/${this.id}`)
-      .then((res) => {
-        this.url = res.data.url;
-        this.name = res.data.login;
-        this.role = res.data.role;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    url: String,
+    login: String,
+    role: String
   }
 }
 </script>

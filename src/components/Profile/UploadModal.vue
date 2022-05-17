@@ -92,6 +92,7 @@ export default {
             .put('http://localhost:33684/api/user/change', this.update)
             .then((res) => {
               this.toast.success('Обновление прошло успешно!');
+              this.$emit('getInfo');
               this.$emit('close');
             })
             .catch((err) => console.log(err));
@@ -105,6 +106,7 @@ export default {
         .put('http://localhost:33684/api/user/change', this.update)
         .then((res) => {
           this.toast.success('Обновление прошло успешно!');
+          this.$emit('getInfo');
           this.$emit('close');
         })
         .catch((err) => console.log(err));

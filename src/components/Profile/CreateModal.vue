@@ -7,7 +7,7 @@
       <form id='form' method='post' enctype='multipart/formdata'>
         <input type='text' name='title' placeholder='Название класса' v-model='create.title'>
         <div id='buttons'>
-          <button id='cancel' @click='cancel'>Отмена</button>
+          <button id='cancel' @click='$emit("close")'>Отмена</button>
           <button @click='save'>Сохранить</button>
         </div>
       </form>
@@ -43,6 +43,8 @@ export default {
         .post('http://localhost:33684/api/class/create', this.create)
         .then((res) => {
           console.log(res);
+          this.$emit('getInfo');
+          this.$emit('close');
         })
         .catch((err) => {
           console.log(err);

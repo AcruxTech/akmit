@@ -1,8 +1,8 @@
 <template>
   <div id='profile'>
     <transition-group name='fade'>
-      <UploadModal v-if='showUpload' @close='showUpload = false'></UploadModal>
-      <CreateModal v-if='showCreate' @close='showCreate = false'></CreateModal>
+      <UploadModal v-if='showUpload' @close='showUpload = false' @getInfo='getInfo()'></UploadModal>
+      <CreateModal v-if='showCreate' @close='showCreate = false' @getInfo='getInfo()'></CreateModal>
     </transition-group>
     <Header></Header>
     <div id='card'>
@@ -18,12 +18,15 @@
       </div>
       <div id='class-info' v-if='classRtoId != 0'>
         <span class='heading'>Мой класс:</span>
-        <Person v-for='id in ids' :key='id' :id='id'></Person>
+        <Person v-for='classmate in classmates' :key='classmate.login' :login='classmate.login' :url='classmate.url' :role='classmate.role'></Person>
+        <div id='buttons'>
+          <button type='button' id='cancel' @click='leaveClass'>Выйти из класса</button>
+        </div>
       </div>
       <div id='else-div' v-else>
         <span class='heading' id='class-heading'>Вы не состоите в классе. Создайте новый или присоединитесь к уже существуещему прямо сейчас!</span>
          <div id='buttons'>
-          <button type='button' @click='showCreate = true'>Создать</button>
+          <button type='button' @click='showCreate = true' @close='showCreate = false'>Создать</button>
           <button type='button' @click='joinClass'>Присоединиться</button>
         </div>
       </div>
@@ -52,9 +55,7 @@ export default {
   },
   data() {
     return {
-      ids: [
-        1
-      ],
+      classmates: [],
       login: '',
       email: '',
       role: '',
@@ -79,15 +80,23 @@ export default {
           this.role = response.data.role;
           this.url = response.data.url;
           this.classRtoId = response.data.classRtoId;
-        })
-        .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
 
-      if (this.classRtoId == 0) return; 
+          if (this.classRtoId == 0) return; 
 
-      axios.get(`http://localhost:33684/api/user/getById/1`)
-        .then(response => {
-          console.log(response.data);
-        })
+          axios.get(`http://localhost:33684/api/user/getByClassId/${this.classRtoId}`)
+            .then(response => {
+              this.classmates.length = 0;
+              for (let i = 0; i < response.data.length; i++) {
+                let user = {
+                  url: response.data[i].url,
+                  login: response.data[i].login,
+                  role: response.data[i].role
+                }
+                this.classmates.push(user);
+              }
+            })
+            .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
+          })
         .catch(error => this.toast.error(`Произошла ошибка! ${error.message}`));
     }
   },
@@ -241,6 +250,19 @@ button {
 
 button:hover {
 	background-size: 100% 100%;
+}
+
+button:hover, #cancel:hover {
+	background-size: 100% 100%;
+}
+
+#cancel {
+  background: #c75431;
+  background-position: 0% 0%;
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  transition: background-size .5s, color .5s;
+  background-image: linear-gradient(#dc5e38, #dc5e38);
 }
 
 .fade-enter-active,
