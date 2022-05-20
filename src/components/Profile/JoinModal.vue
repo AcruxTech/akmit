@@ -40,6 +40,7 @@ export default {
       console.log(this.join);
       axios.post('http://localhost:33684/api/class/join', this.join)
         .then((res) => {
+          this.toast.success('Вы вошли в класс!');
           this.$emit('getInfo');
           this.$emit('close');
         })
