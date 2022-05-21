@@ -1,7 +1,7 @@
 <template>
   <div id='diary'>
     <transition name='fade'>
-      <Modal v-if='show' @close='closeModal'></Modal>
+      <LessonEditModal v-if='show' @close='closeModal'></LessonEditModal>
     </transition>
     <div id='background'></div>
     <div id='days'>
@@ -22,15 +22,21 @@ import Header from '@/components/Shared/Header.vue'
 import Footer from '@/components/Shared/Footer.vue'
 import Sidenav from '@/components/Shared/Sidenav.vue'
 import Day from '@/components/Diary/Day.vue'
-import Modal from '@/components/Diary/Modal.vue'
+import LessonEditModal from '@/components/Diary/LessonEditModal.vue'
+import axios from 'axios'
+import { useToast } from 'vue-toastification';
 
 export default {
+  setup() {
+		const toast = useToast();
+		return { toast }
+	},
   components: {
     Header,
     Footer,
     Sidenav,
     Day,
-    Modal
+    LessonEditModal
   },
   data() {
     return {
@@ -41,6 +47,23 @@ export default {
     closeModal() {
       this.show = false;
     }
+  },
+  created() {
+    if (!localStorage.token) {
+      this.toast.error('Необходима авторизация!');
+      this.$router.push('/auth');
+    }
+
+    let payload =  {
+      body: localStorage.token
+    }
+
+    axios
+      .post(`http://localhost:33684/api/day/get_all`, payload)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => console.log(err));
   }
 }
 </script>
