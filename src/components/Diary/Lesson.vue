@@ -2,7 +2,7 @@
   <div id='lesson' v-bind:class='{last: last}'>
     <div id='number'>{{number}}</div>
     <div id='data'>
-      <span id='title'>{{title}}</span>
+      <span id='title'>{{title}}<span id='cabinet'>{{cabinet}}каб.</span></span>
       <span id='homework'>{{homework}}</span>
     </div>
   </div>
@@ -14,7 +14,8 @@ export default {
     last: Boolean,
     number: Number,
     title: String,
-    homework: String
+    homework: String,
+    cabinet: Number
   }
 }
 </script>
@@ -62,6 +63,10 @@ export default {
 }
 
 #title {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-family: 'OswaldMedium';
   font-style: normal;
   font-weight: 500;
@@ -72,11 +77,7 @@ export default {
   color: #000;
 }
 
-#homework {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+#homework, #cabinet {
   font-family: 'OpenSansRegular';
   font-style: normal;
   font-weight: 400;

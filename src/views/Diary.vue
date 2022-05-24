@@ -1,16 +1,13 @@
 <template>
   <div id='diary'>
-    <transition name='fade'>
-      <LessonEditModal v-if='show' @close='closeModal'></LessonEditModal>
-    </transition>
+    <transition-group name='fade'>
+      <!-- <LessonEditModal v-if='showEditLesson' @close='showEditLesson = false'></LessonEditModal> -->
+      <AddDayModal v-if='showAddDay' @close='showAddDay = false' @getDays='getDays'></AddDayModal>
+    </transition-group>
     <div id='background'></div>
+    <button @click='showAddDay = true' id='addDay'>+</button>
     <div id='days'>
-      <Day @click='show = !show'></Day>
-      <Day></Day>
-      <Day></Day>
-      <Day></Day>
-      <Day></Day>
-      <Day></Day>
+      <Day @click='showEditLesson = true' v-for='day in days' :key='day.title' :day='day' @getDays='getDays'></Day>
     </div>
     <Header></Header>
     <Footer></Footer>
@@ -23,6 +20,7 @@ import Footer from '@/components/Shared/Footer.vue'
 import Sidenav from '@/components/Shared/Sidenav.vue'
 import Day from '@/components/Diary/Day.vue'
 import LessonEditModal from '@/components/Diary/LessonEditModal.vue'
+import AddDayModal from '@/components/Diary/AddDayModal.vue'
 import axios from 'axios'
 import { useToast } from 'vue-toastification';
 
@@ -36,16 +34,31 @@ export default {
     Footer,
     Sidenav,
     Day,
-    LessonEditModal
+    LessonEditModal,
+    AddDayModal
   },
   data() {
     return {
-      show: false
+      showEditLesson: false,
+      showAddDay: false,
+      days: []
     }
   },
   methods: {
-    closeModal() {
-      this.show = false;
+    getDays() {
+      this.days.length = 0;
+      axios
+        .get(`http://localhost:33684/api/day/get_all/${localStorage.classRtoId}`)
+        .then((res) => {
+          if (res.status == 204) { 
+            this.toast.info('Дни не добавлены');
+            return;
+          }
+          for (let i = 0; i < res.data.length; i++) {
+            this.days.push(res.data[i]);
+          }
+        })
+        .catch((err) => console.log(err));
     }
   },
   created() {
@@ -53,17 +66,9 @@ export default {
       this.toast.error('Необходима авторизация!');
       this.$router.push('/auth');
     }
-
-    let payload =  {
-      body: localStorage.token
+    else {
+      this.getDays();
     }
-
-    axios
-      .post(`http://localhost:33684/api/day/get_all`, payload)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => console.log(err));
   }
 }
 </script>
@@ -84,11 +89,34 @@ export default {
 
 #days {
   width: 60%;
+  min-height: calc(100vh - 100px);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+}
+
+button {
+  position: fixed;
+  right: 75px;
+  bottom: 75px;
+	width: 50px;
+  height: 50px;
+	color: #fff;
+	background: #2C63B5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	font-size: 40px;
+	font-weight: bold;
+	outline: none;
+	border: none;
+	border-radius: 50%;
+	transition: .2s ease-in;
+	cursor: pointer;
+
+	background-color: #316dc7;
 }
 
 .fade-enter-active,

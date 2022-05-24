@@ -2,18 +2,13 @@
   <div id='modal'>
     <div id='modal-body'>
       <div id='heading'>
-        <span id='title'>Понедельник</span>
-        <span id='today'>28 марта 2022 года - 71 школа, 311 кабинет</span>
+        <span id='title'>Добавить урок</span>
       </div>  
       <form method='post'>
-        <div class='wrapper'>
-          <input type='text' name='lesson' required value='Литература' :disabled='inputs.lessonInput'>
-          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("lessonInput")'>
-        </div>
-        <div class='wrapper'>
-          <input type='text' name='homework' required value='Учить стих' :disabled='inputs.homeworkInput'>
-          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("homeworkInput")'>
-        </div>
+        <input type='number' name='number' placeholder='Номер' v-model='payload.number'>
+        <input type='text' name='lesson' placeholder='Урок' v-model='payload.lesson'>
+        <input type='text' name='homework' placeholder='Домашнее задание' v-model='payload.homework'>
+        <input type='number' name='cabinet' placeholder='Кабинет' v-model='payload.cabinet'>
         <div id='buttons'>
           <button id='cancel' @click='cancel'>Отмена</button>
           <button @click='save'>Сохранить</button>
@@ -24,12 +19,26 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { useToast } from 'vue-toastification';
+
 export default {
+  props: {
+    dayTitle: String
+  },
+  setup() {
+		const toast = useToast();
+		return { toast }
+	},
   data() {
     return {
-      inputs: {
-        lessonInput: 'disabled',
-        homeworkInput: 'disabled'
+      payload: {
+        classRtoId: parseInt(localStorage.classRtoId),
+        dayTitle: this.dayTitle,
+        number: Number,
+        lesson: '',
+        homework: '',
+        cabinet: Number
       }
     }
   },
@@ -40,11 +49,18 @@ export default {
     },
     save(event) {
       event.preventDefault();
-    },
-    iconClick(input) {
-      if(this.inputs[input]) this.inputs[input] = null;
-      else this.inputs[input] = 'disabled';
+      console.log(this.payload);
+      axios
+        .post('http://localhost:33684/api/lesson/add', this.payload)
+        .then((res) => {
+          this.toast.success('Урок успешно добавлен!');
+          this.$emit('close');
+        })
+        .catch((err) => console.log(err));
     }
+  },
+  created() {
+    console.log(this.dayTitle);
   }
 }
 </script>
@@ -52,7 +68,9 @@ export default {
 <style scoped>
 #modal {
   position: fixed;
-  width: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.5);
@@ -63,7 +81,7 @@ export default {
 
 #modal-body {
   width: 30vw;
-  height: 30vh;
+  height: 40vh;
   background-color: #fff;
   border-radius: 12px;
 	box-shadow: 0px 3px 12px #585858;
@@ -89,27 +107,13 @@ export default {
   color: #000;
 }
 
-#today {
-  font-family: 'OpenSansRegular';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-  color: #999999;
-}
-
 form {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: calc(30vh - 50px);
+  height: calc(40vh - 50px);
   padding: 20px 0;
-}
-
-.wrapper {
-  width: 70%;
-  position: relative;
 }
 
 img {
@@ -120,18 +124,14 @@ img {
 }
 
 input{
-	width: 100%;
+	width: 70%;
   height: 5vh;
   padding-left: 20px;
-	background: #cccccc;
+	background: #e7e7e7;
 	justify-content: center;
 	border: none;
 	outline: none;
 	border-radius: 5px;
-}
-
-input:enabled {
-  background: #e7e7e7;
 }
 
 input:focus {
@@ -149,7 +149,7 @@ input:focus {
 }
 
 button {
-	width: 30%;
+	width: 35%;
   height: 4.5vh;
 	justify-content: center;
 	color: #fff;

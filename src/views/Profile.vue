@@ -84,6 +84,7 @@ export default {
           this.role = response.data.role;
           this.url = response.data.url;
           this.classRtoId = response.data.classRtoId;
+          localStorage.classRtoId = response.data.classRtoId;
 
           if (this.classRtoId == 0) return; 
 

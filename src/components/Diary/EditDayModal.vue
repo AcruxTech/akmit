@@ -2,18 +2,12 @@
   <div id='modal'>
     <div id='modal-body'>
       <div id='heading'>
-        <span id='title'>Понедельник</span>
-        <span id='today'>28 марта 2022 года - 71 школа, 311 кабинет</span>
+        <span id='title'>Изменить день</span>
+        <img src='@/assets/icons/trash.svg' alt='delete' @click='deleteDay' />
       </div>  
       <form method='post'>
-        <div class='wrapper'>
-          <input type='text' name='lesson' required value='Литература' :disabled='inputs.lessonInput'>
-          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("lessonInput")'>
-        </div>
-        <div class='wrapper'>
-          <input type='text' name='homework' required value='Учить стих' :disabled='inputs.homeworkInput'>
-          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("homeworkInput")'>
-        </div>
+        <input type='text' name='newTitle' placeholder='Новое название' v-model='payload.newTitle'>
+        <input type='text' name='newPavilion' placeholder='Новый корпус' v-model='payload.newPavilion'>
         <div id='buttons'>
           <button id='cancel' @click='cancel'>Отмена</button>
           <button @click='save'>Сохранить</button>
@@ -24,12 +18,24 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { useToast } from 'vue-toastification';
+
 export default {
+  props: {
+    dayTitle: String
+  },
+  setup() {
+		const toast = useToast();
+		return { toast }
+	},
   data() {
     return {
-      inputs: {
-        lessonInput: 'disabled',
-        homeworkInput: 'disabled'
+      payload: {
+        classRtoId: parseInt(localStorage.classRtoId),
+        dayTitle: this.dayTitle,
+        newTitle: '',
+        newPavilion: ''
       }
     }
   },
@@ -40,10 +46,29 @@ export default {
     },
     save(event) {
       event.preventDefault();
+      axios
+        .put(`http://localhost:33684/api/day/${localStorage.classRtoId}/${this.dayTitle}`, this.payload)
+        .then((res) => {
+          this.toast.success('Обновление прошло успешно!');
+          this.$emit('getDays');
+          this.$emit('close');
+        })
+        .catch((err) => console.log(err));
     },
-    iconClick(input) {
-      if(this.inputs[input]) this.inputs[input] = null;
-      else this.inputs[input] = 'disabled';
+    deleteDay() {
+      const payload = {
+        classRtoId: parseInt(localStorage.classRtoId),
+        title: this.dayTitle
+      }
+
+      axios
+        .post('http://localhost:33684/api/day/delete', payload)
+        .then((res) => {
+          this.toast.success('Удаление прошло успешно!');
+          this.$emit('getDays');
+          this.$emit('close');
+        })
+        .catch((err) => console.log(err));
     }
   }
 }
@@ -52,7 +77,9 @@ export default {
 <style scoped>
 #modal {
   position: fixed;
-  width: 100%;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
   z-index: 100;
   background-color: rgba(0, 0, 0, 0.5);
@@ -70,6 +97,7 @@ export default {
 }
 
 #heading {
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -89,15 +117,6 @@ export default {
   color: #000;
 }
 
-#today {
-  font-family: 'OpenSansRegular';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-  color: #999999;
-}
-
 form {
   display: flex;
   flex-direction: column;
@@ -107,31 +126,22 @@ form {
   padding: 20px 0;
 }
 
-.wrapper {
-  width: 70%;
-  position: relative;
-}
-
 img {
   position: absolute;
-  top: calc(50% - 10px);
-  right: 10px;
-  width: 20px;
+  top: calc(50% - 12.5px);
+  right: 12.5px;
+  width: 25px;
 }
 
 input{
-	width: 100%;
+	width: 70%;
   height: 5vh;
   padding-left: 20px;
-	background: #cccccc;
+	background: #e7e7e7;
 	justify-content: center;
 	border: none;
 	outline: none;
 	border-radius: 5px;
-}
-
-input:enabled {
-  background: #e7e7e7;
 }
 
 input:focus {
@@ -149,7 +159,7 @@ input:focus {
 }
 
 button {
-	width: 30%;
+	width: 35%;
   height: 4.5vh;
 	justify-content: center;
 	color: #fff;
