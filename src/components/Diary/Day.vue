@@ -2,7 +2,7 @@
   <div id='day'>
     <transition-group name='fade'>
       <EditDayModal v-if='showEditDay' @close='showEditDay = false' :dayTitle='day.title' @getDays='getDays'></EditDayModal>
-      <AddLessonModal v-if='showAddLesson' @close='showAddLesson = false' :dayTitle='day.title'></AddLessonModal>
+      <AddLessonModal v-if='showAddLesson' @close='showAddLesson = false' :dayTitle='day.title' @getDays='getDays'></AddLessonModal>
     </transition-group>
     <div id='heading'>
       <p @click='showEditDay = true'>{{day.title}}</p>
@@ -10,7 +10,7 @@
     </div>
     <p class='message'>{{message}}</p>
     <Lesson v-for='(lesson, index) in lessons' :key='lesson.lesson' :last='amount==index+1 ? true : false'
-      :number='index+1' :title='lesson.lesson' :homework='lesson.homework' :cabinet='lesson.cabinet'></Lesson>
+      :number='index+1' :title='lesson.lesson' :homework='lesson.homework' :cabinet='lesson.cabinet' :pavilion='day.pavilion' :dayTitle='day.hljs-title'></Lesson>
   </div>
 </template>
 
@@ -44,8 +44,6 @@ export default {
     }
   },
   created() {
-    this.amount = this.lessons.length;
-    
     axios
       .get(`http://localhost:33684/api/lesson/${localStorage.classRtoId}/${this.day.title}`)
       .then((res) => {
@@ -56,6 +54,7 @@ export default {
         for (let i = 0; i < res.data.length; i++) {
           this.lessons.push(res.data[i]);
         }
+        this.amount = this.lessons.length;
       })
       .catch((err) => console.log(err));
   }
@@ -119,7 +118,6 @@ button {
 }
 
 .message {
-  margin: 10px 0;
   text-align: center;
   font-family: 'OpenSansRegular';
   font-style: normal;

@@ -54,6 +54,7 @@ export default {
         .post('http://localhost:33684/api/lesson/add', this.payload)
         .then((res) => {
           this.toast.success('Урок успешно добавлен!');
+          this.$emit('getDays');
           this.$emit('close');
         })
         .catch((err) => console.log(err));

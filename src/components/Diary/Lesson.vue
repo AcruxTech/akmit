@@ -1,8 +1,10 @@
 <template>
   <div id='lesson' v-bind:class='{last: last}'>
-    <LessonEditModal v-if='showEditLesson' @close='showEditLesson = false'></LessonEditModal>
+    <transition name='fade'>
+      <EditLessonModal v-if='showEditLesson' @close='showEditLesson = false' :lesson='lesson' :pavilion='pavilion' :dayTitle='dayTitle'></EditLessonModal>
+    </transition>
     <div id='number'>{{number}}</div>
-    <div id='data'>
+    <div id='data' @click='showEditLesson = true'>
       <span id='title'>{{title}}<span id='cabinet'>{{cabinet}}каб.</span></span>
       <span id='homework'>{{homework}}</span>
     </div>
@@ -10,7 +12,7 @@
 </template>
 
 <script>
-import LessonEditModal from '@/components/Diary/LessonEditModal.vue'
+import EditLessonModal from '@/components/Diary/EditLessonModal.vue'
 
 export default {
   props: {
@@ -18,10 +20,23 @@ export default {
     number: Number,
     title: String,
     homework: String,
-    cabinet: Number
+    cabinet: Number,
+    pavilion: String,
+    dayTitle: String
   },
   components: {
-    LessonEditModal
+    EditLessonModal
+  },
+  data() {
+    return {
+      showEditLesson: false,
+      lesson: {
+        number: this.number,
+        title: this.title,
+        homework: this.homework,
+        cabinet: this.cabinet
+      }
+    }
   }
 }
 </script>

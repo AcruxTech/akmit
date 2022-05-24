@@ -2,17 +2,23 @@
   <div id='modal'>
     <div id='modal-body'>
       <div id='heading'>
-        <span id='title'>Понедельник</span>
-        <span id='today'>28 марта 2022 года - 71 школа, 311 кабинет</span>
+        <span id='title'>{{lesson.title}}</span>
+        <span id='today'>{{(new Date()).toISOString().slice(0,10)}} - {{pavilion}}, {{lesson.cabinet}}каб.</span>
+        <img src='@/assets/icons/trash.svg' alt='delete' @click='deleteLesson' id='delete' />
       </div>  
       <form method='post'>
         <div class='wrapper'>
-          <input type='text' name='lesson' required value='Литература' :disabled='inputs.lessonInput'>
+          <input type='number' name='number' v-model='lesson.number' id='number'>
+          <input type='text' name='lesson' placeholder='Урок' :disabled='inputs.lessonInput' v-model='lesson.title' id='lesson'>
           <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("lessonInput")'>
         </div>
         <div class='wrapper'>
-          <input type='text' name='homework' required value='Учить стих' :disabled='inputs.homeworkInput'>
+          <input type='text' name='homework' :disabled='inputs.homeworkInput' v-model='lesson.homework'>
           <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("homeworkInput")'>
+        </div>
+        <div class='wrapper'>
+          <input type='number' name='cabinet' :disabled='inputs.cabinetInput' v-model='lesson.cabinet'>
+          <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("cabinetInput")'>
         </div>
         <div id='buttons'>
           <button id='cancel' @click='cancel'>Отмена</button>
@@ -24,13 +30,31 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
+  props: {
+    lesson: Object,
+    dayTitle: String,
+    pavilion: String
+  },
   data() {
     return {
       inputs: {
         lessonInput: 'disabled',
-        homeworkInput: 'disabled'
-      }
+        homeworkInput: 'disabled',
+        cabinetInput: 'disabled',
+      },
+      payload: {
+        classRtoId: parseInt(localStorage.classRtoId),
+        dayTitle: this.dayTitle,
+        number: this.lesson.number,
+        newNumber: this.lessonData.number,
+        newLesson: this.lessonData.title,
+        newHomework: this.lessonData.homework,
+        newCabinet: this.lessonData.cabinet
+      },
+      lessonData: this.lesson
     }
   },
   methods: {
@@ -40,6 +64,17 @@ export default {
     },
     save(event) {
       event.preventDefault();
+      console.log(this.payload);
+
+      axios
+        .put('http://localhost:33684/api/lesson', this.payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => console.log(err));
+    },
+    deleteLesson() {
+      
     },
     iconClick(input) {
       if(this.inputs[input]) this.inputs[input] = null;
@@ -52,6 +87,8 @@ export default {
 <style scoped>
 #modal {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100vh;
   z-index: 100;
@@ -63,13 +100,14 @@ export default {
 
 #modal-body {
   width: 30vw;
-  height: 30vh;
+  height: 35vh;
   background-color: #fff;
   border-radius: 12px;
 	box-shadow: 0px 3px 12px #585858;
 }
 
 #heading {
+  position: relative;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -103,7 +141,7 @@ form {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: calc(30vh - 50px);
+  height: calc(35vh - 50px);
   padding: 20px 0;
 }
 
@@ -117,6 +155,12 @@ img {
   top: calc(50% - 10px);
   right: 10px;
   width: 20px;
+}
+
+#delete {
+  top: calc(50% - 12.5px);
+  right: 12.5px;
+  width: 25px;
 }
 
 input{
@@ -138,6 +182,24 @@ input:focus {
 	transition-timing-function: ease-in;
 	transition: .2s;
 	box-shadow: 0px 4px 8px #888;
+}
+
+#number {
+  position: absolute;
+  padding-left: 10px;
+  top: 0;
+  left: 0;
+  width: 10%;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+#lesson {
+  margin-left: 10%;
+  width: 90%;
+  border-left: 3px solid #888;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
 }
 
 #buttons {
@@ -180,6 +242,16 @@ button:hover, #cancel:hover {
   background-size: 0% 100%;
   transition: background-size .5s, color .5s;
   background-image: linear-gradient(#dc5e38, #dc5e38);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 
 @media (max-width: 768px) {
