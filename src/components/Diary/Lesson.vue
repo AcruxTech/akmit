@@ -1,5 +1,6 @@
 <template>
   <div id='lesson' v-bind:class='{last: last}'>
+    <LessonEditModal v-if='showEditLesson' @close='showEditLesson = false'></LessonEditModal>
     <div id='number'>{{number}}</div>
     <div id='data'>
       <span id='title'>{{title}}<span id='cabinet'>{{cabinet}}каб.</span></span>
@@ -9,6 +10,8 @@
 </template>
 
 <script>
+import LessonEditModal from '@/components/Diary/LessonEditModal.vue'
+
 export default {
   props: {
     last: Boolean,
@@ -16,6 +19,9 @@ export default {
     title: String,
     homework: String,
     cabinet: Number
+  },
+  components: {
+    LessonEditModal
   }
 }
 </script>

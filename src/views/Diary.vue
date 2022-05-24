@@ -1,7 +1,6 @@
 <template>
   <div id='diary'>
     <transition-group name='fade'>
-      <!-- <LessonEditModal v-if='showEditLesson' @close='showEditLesson = false'></LessonEditModal> -->
       <AddDayModal v-if='showAddDay' @close='showAddDay = false' @getDays='getDays'></AddDayModal>
     </transition-group>
     <div id='background'></div>
@@ -19,7 +18,6 @@ import Header from '@/components/Shared/Header.vue'
 import Footer from '@/components/Shared/Footer.vue'
 import Sidenav from '@/components/Shared/Sidenav.vue'
 import Day from '@/components/Diary/Day.vue'
-import LessonEditModal from '@/components/Diary/LessonEditModal.vue'
 import AddDayModal from '@/components/Diary/AddDayModal.vue'
 import axios from 'axios'
 import { useToast } from 'vue-toastification';
@@ -34,12 +32,10 @@ export default {
     Footer,
     Sidenav,
     Day,
-    LessonEditModal,
     AddDayModal
   },
   data() {
     return {
-      showEditLesson: false,
       showAddDay: false,
       days: []
     }
