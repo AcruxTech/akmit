@@ -9,8 +9,13 @@
       <button @click='showAddLesson = true' id='addLesson'>+</button>
     </div>
     <p class='message'>{{message}}</p>
-    <Lesson v-for='(lesson, index) in lessons' :key='lesson.lesson' :last='amount==index+1 ? true : false'
-      :number='index+1' :title='lesson.lesson' :homework='lesson.homework' :cabinet='lesson.cabinet' :pavilion='day.pavilion' :dayTitle='day.hljs-title'></Lesson>
+    <Lesson v-for='lesson in lessons' :key='lesson.lesson' @getDays='getDays'
+      :number='lesson.number' 
+      :title='lesson.lesson' 
+      :homework='lesson.homework' 
+      :cabinet='lesson.cabinet' 
+      :pavilion='day.pavilion' 
+      :dayTitle='day.title'></Lesson>
   </div>
 </template>
 
@@ -34,8 +39,7 @@ export default {
       lessons: [],
       message: '',
       showAddLesson: false,
-      showEditDay: false,
-      amount: 0
+      showEditDay: false
     }
   },
   methods: {
@@ -44,6 +48,7 @@ export default {
     }
   },
   created() {
+    this.lessons.length = 0;
     axios
       .get(`http://localhost:33684/api/lesson/${localStorage.classRtoId}/${this.day.title}`)
       .then((res) => {
@@ -54,7 +59,6 @@ export default {
         for (let i = 0; i < res.data.length; i++) {
           this.lessons.push(res.data[i]);
         }
-        this.amount = this.lessons.length;
       })
       .catch((err) => console.log(err));
   }

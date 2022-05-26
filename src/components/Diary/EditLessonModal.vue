@@ -8,16 +8,16 @@
       </div>  
       <form method='post'>
         <div class='wrapper'>
-          <input type='number' name='number' v-model='lesson.number' id='number'>
-          <input type='text' name='lesson' placeholder='Урок' :disabled='inputs.lessonInput' v-model='lesson.title' id='lesson'>
+          <input type='number' name='number' v-model='lessonData.number' id='number'>
+          <input type='text' name='lesson' placeholder='Урок' :disabled='inputs.lessonInput' v-model='lessonData.title' id='lesson'>
           <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("lessonInput")'>
         </div>
         <div class='wrapper'>
-          <input type='text' name='homework' :disabled='inputs.homeworkInput' v-model='lesson.homework'>
+          <input type='text' name='homework' :disabled='inputs.homeworkInput' v-model='lessonData.homework'>
           <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("homeworkInput")'>
         </div>
         <div class='wrapper'>
-          <input type='number' name='cabinet' :disabled='inputs.cabinetInput' v-model='lesson.cabinet'>
+          <input type='number' name='cabinet' :disabled='inputs.cabinetInput' v-model='lessonData.cabinet'>
           <img src='@/assets/icons/pencil.svg' alt='change' @click='iconClick("cabinetInput")'>
         </div>
         <div id='buttons'>
@@ -31,6 +31,7 @@
 
 <script>
 import axios from 'axios'
+import { useToast } from 'vue-toastification';
 
 export default {
   props: {
@@ -38,21 +39,16 @@ export default {
     dayTitle: String,
     pavilion: String
   },
+  setup() {
+		const toast = useToast();
+		return { toast }
+	},
   data() {
     return {
       inputs: {
         lessonInput: 'disabled',
         homeworkInput: 'disabled',
         cabinetInput: 'disabled',
-      },
-      payload: {
-        classRtoId: parseInt(localStorage.classRtoId),
-        dayTitle: this.dayTitle,
-        number: this.lesson.number,
-        newNumber: this.lessonData.number,
-        newLesson: this.lessonData.title,
-        newHomework: this.lessonData.homework,
-        newCabinet: this.lessonData.cabinet
       },
       lessonData: this.lesson
     }
@@ -64,17 +60,40 @@ export default {
     },
     save(event) {
       event.preventDefault();
-      console.log(this.payload);
+
+      const payload = {
+        classRtoId: parseInt(localStorage.classRtoId),
+        dayTitle: this.dayTitle,
+        number: this.lesson.number,
+        newNumber: this.lessonData.number,
+        newLesson: this.lessonData.title,
+        newHomework: this.lessonData.homework,
+        newCabinet: this.lessonData.cabinet
+      };
 
       axios
-        .put('http://localhost:33684/api/lesson', this.payload)
+        .put('http://localhost:33684/api/lesson', payload)
         .then((res) => {
-          console.log(res);
+          this.toast.success('Обновлено!');
+          this.$emit('getDays');
+          this.$emit('close');
         })
         .catch((err) => console.log(err));
     },
     deleteLesson() {
-      
+      const payload = {
+        ClassRtoId: parseInt(localStorage.classRtoId),
+        dayTitle: this.dayTitle,
+        number: this.lesson.number
+      };
+      axios
+        .post('http://localhost:33684/api/lesson/delete', payload)
+        .then((res) => {
+          this.toast.info('Удалено!');
+          this.$emit('getDays');
+          this.$emit('close');
+        })
+        .catch((err) => console.log(err));
     },
     iconClick(input) {
       if(this.inputs[input]) this.inputs[input] = null;

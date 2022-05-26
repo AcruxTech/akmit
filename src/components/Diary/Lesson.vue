@@ -1,7 +1,7 @@
 <template>
-  <div id='lesson' v-bind:class='{last: last}'>
+  <div id='lesson'>
     <transition name='fade'>
-      <EditLessonModal v-if='showEditLesson' @close='showEditLesson = false' :lesson='lesson' :pavilion='pavilion' :dayTitle='dayTitle'></EditLessonModal>
+      <EditLessonModal v-if='showEditLesson' @close='showEditLesson = false' @getDays='getDays' :lesson='lesson' :pavilion='pavilion' :dayTitle='dayTitle'></EditLessonModal>
     </transition>
     <div id='number'>{{number}}</div>
     <div id='data' @click='showEditLesson = true'>
@@ -16,7 +16,6 @@ import EditLessonModal from '@/components/Diary/EditLessonModal.vue'
 
 export default {
   props: {
-    last: Boolean,
     number: Number,
     title: String,
     homework: String,
@@ -37,6 +36,11 @@ export default {
         cabinet: this.cabinet
       }
     }
+  },
+  methods: {
+    getDays() {
+      this.$emit('getDays');
+    }
   }
 }
 </script>
@@ -49,10 +53,6 @@ export default {
   justify-content: space-between;
   height: 65px;
   border-bottom: solid 1px #888;
-}
-
-#lesson.last {
-  border-bottom: none;
 }
 
 #number {
